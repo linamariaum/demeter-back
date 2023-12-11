@@ -1,4 +1,5 @@
 import { Router } from 'express'
+<<<<<<< Updated upstream
 
 import { getCategory_products, getOneCategory_products, checkForDuplicates, createCategory_products, disableCategory_products, updateCategory_products, deleteCategory_products } from '../controllers/productcategory.controller.js'
 
@@ -28,5 +29,17 @@ router.put('/productcategory/disable/:id', authRequired, disableCategory_product
 router.put('/productcategory/update/:id', authRequired, updateCategory_products);
 router.delete('/productcategory/:id', authRequired, deleteCategory_products);
 router.get('/productcategory/:id', authRequired, getOneCategory_products);
+=======
+import { getCategory_products, getOneCategory_products, checkForDuplicates, createCategory_products, disableCategory_products, updateCategory_products, deleteCategory_products } from '../controllers/productcategory.controller.js'
+
+const router = Router();
+
+router.get('/productcategory', getCategory_products);
+router.post('/productcategory', checkForDuplicates, createCategory_products);
+router.put('/productcategory/disable/:id', disableCategory_products);
+router.put('/productcategory/update/:id', updateCategory_products);
+router.delete('/productcategory/:id', deleteCategory_products);
+router.get('/productcategory/:id', getOneCategory_products);
+>>>>>>> Stashed changes
 
 export default router;

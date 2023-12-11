@@ -31,6 +31,7 @@ const moduleValidation = new ModuleValidationMiddleware(
     }
 )
 
+<<<<<<< Updated upstream
 router.use(moduleValidation.hasPermissions(
     moduleValidation.MODULES.DASHBOARD
 ))
@@ -49,4 +50,6 @@ router.get("/dashboard/average-units-per-sale", authRequired, averageUnitsPerSal
 router.get("/dashboard/net-income-by-product", authRequired, netIncomeByProduct);
 router.get("/dashboard/net-income-by-supply", authRequired, netIncomeBySupply);
 
+=======
+>>>>>>> Stashed changes
 export default router;

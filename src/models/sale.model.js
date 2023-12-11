@@ -21,6 +21,16 @@ export const sale = sequelize.define('Sales', {
         }
     },
 
+    Datetime: {
+        type: DataTypes.DATE, 
+        allowNull: false,
+        validate: {
+            notNull:{
+                msg: "La fecha es requerido"
+            }
+        }
+    },
+
     QuickSale: {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
@@ -35,7 +45,6 @@ export const sale = sequelize.define('Sales', {
     Discount: {
         type: DataTypes.DECIMAL(10, 2),
         allowNull: false,
-        defaultValue: 0.0,
         validate: {
             notNull:{
                 msg: "El descuento es requerido"
@@ -46,7 +55,6 @@ export const sale = sequelize.define('Sales', {
     SubTotal: {
         type: DataTypes.DECIMAL(10, 2),
         allowNull: false,
-        defaultValue: 0,
         validate: {
             notNull:{
                 msg: "El subtotal es requerido"
@@ -57,7 +65,6 @@ export const sale = sequelize.define('Sales', {
     Total: {
         type: DataTypes.DECIMAL(10,2),
         allowNull: false,
-        defaultValue: 0,
         validate: {
             notNull:{
                 msg: "El precio del producto es requerido"
@@ -68,8 +75,11 @@ export const sale = sequelize.define('Sales', {
 
     Payment: {
         type: DataTypes.STRING(30),
-        allowNull: true, 
+        allowNull: false, 
         validate: {
+            notNull:{
+                msg: "El metodo de pago es requerido"
+            }, 
             customValidate(value) {
                 if (!/^[A-Za-z\s()]+$/.test(value)) {
                     throw new Error('La medida del insumo puede contener letras, espacios y paréntesis.');
@@ -89,10 +99,11 @@ export const sale = sequelize.define('Sales', {
         }
     }
 }, {
-    timestamps: true
+    timestamps: false
 });
 
 sale.hasMany(saleDetail, {
+<<<<<<< Updated upstream
     foreignKey: {
         name: 'Sale_ID',
         allowNull: false,
@@ -106,4 +117,13 @@ saleDetail.belongsTo(sale, {
         allowNull: false,
     },
     targetKey: 'ID_Sale',
+=======
+    foreignKey: 'Sale_ID',
+    sourceKey: 'ID_Sale'
+})
+
+saleDetail.belongsTo(sale, {
+    foreignKey: 'Sale_ID',
+    targetKey: 'ID_Sale'
+>>>>>>> Stashed changes
 })

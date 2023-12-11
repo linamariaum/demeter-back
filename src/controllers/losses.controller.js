@@ -1,7 +1,6 @@
 import { losses } from "../models/losses.model.js";
 import { supplies } from "../models/supplies.model.js";
 
-
 export const getLosses = async (req, res) => {
     try {
         const arrayLosses = await losses.findAll();

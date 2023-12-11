@@ -18,20 +18,36 @@ const moduleValidation = new ModuleValidationMiddleware(
     }
 )
 
-router.use(moduleValidation.hasPermissions(
+router.get('/role', authRequired, moduleValidation.hasPermissions(
     moduleValidation.MODULES.SETTINGS
-))
-
-router.get('/role', authRequired, getRoles);
-router.post('/role/addModuleToRole/:roleId/:moduleId', authRequired, addModuleToRole);
-router.post('/role/addMultipleModuleAndRole/:roleId', authRequired, addMultipleModuleAndRole);
-router.post('/role/addMultipleModuleAndRoleAndDeleteIfExists/:roleId', authRequired, addMultipleModuleAndRoleAndDeleteIfExists);
-router.get('/role_status', authRequired, getRoleByState);
-router.get('/role/:id', authRequired, getRole);
-router.post('/add_role', authRequired, checkForDuplicates, createRoles);
-router.put('/role/:id', authRequired, updateRole);
-router.put('/role/toggle/:id', authRequired, toggleRoleStatus);
-router.delete('/role/:id', authRequired, deleteRole);
+), getRoles);
+router.post('/role/addModuleToRole/:roleId/:moduleId', authRequired, moduleValidation.hasPermissions(
+    moduleValidation.MODULES.SETTINGS
+), addModuleToRole);
+router.post('/role/addMultipleModuleAndRole/:roleId', authRequired, moduleValidation.hasPermissions(
+    moduleValidation.MODULES.SETTINGS
+), addMultipleModuleAndRole);
+router.post('/role/addMultipleModuleAndRoleAndDeleteIfExists/:roleId', authRequired, moduleValidation.hasPermissions(
+    moduleValidation.MODULES.SETTINGS
+), addMultipleModuleAndRoleAndDeleteIfExists);
+router.get('/role_status', authRequired, moduleValidation.hasPermissions(
+    moduleValidation.MODULES.SETTINGS
+), getRoleByState);
+router.get('/role/:id', authRequired, moduleValidation.hasPermissions(
+    moduleValidation.MODULES.SETTINGS
+), getRole);
+router.post('/add_role', authRequired, checkForDuplicates, moduleValidation.hasPermissions(
+    moduleValidation.MODULES.SETTINGS
+), createRoles);
+router.put('/role/:id', authRequired, moduleValidation.hasPermissions(
+    moduleValidation.MODULES.SETTINGS
+), updateRole);
+router.put('/role/toggle/:id', authRequired, moduleValidation.hasPermissions(
+    moduleValidation.MODULES.SETTINGS
+), toggleRoleStatus);
+router.delete('/role/:id', authRequired, moduleValidation.hasPermissions(
+    moduleValidation.MODULES.SETTINGS
+), deleteRole);
 
 
 export default router;

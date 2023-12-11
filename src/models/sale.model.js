@@ -103,7 +103,6 @@ export const sale = sequelize.define('Sales', {
 });
 
 sale.hasMany(saleDetail, {
-<<<<<<< Updated upstream
     foreignKey: {
         name: 'Sale_ID',
         allowNull: false,
@@ -117,13 +116,4 @@ saleDetail.belongsTo(sale, {
         allowNull: false,
     },
     targetKey: 'ID_Sale',
-=======
-    foreignKey: 'Sale_ID',
-    sourceKey: 'ID_Sale'
-})
-
-saleDetail.belongsTo(sale, {
-    foreignKey: 'Sale_ID',
-    targetKey: 'ID_Sale'
->>>>>>> Stashed changes
 })

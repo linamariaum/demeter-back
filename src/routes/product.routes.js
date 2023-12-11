@@ -6,7 +6,6 @@ import ModuleValidationMiddleware from '../middlewares/ModuleValidation.middlewa
 
 const router = Router();
 
-<<<<<<< Updated upstream
 const moduleValidation = new ModuleValidationMiddleware(
     ({
         res,
@@ -18,26 +17,26 @@ const moduleValidation = new ModuleValidationMiddleware(
     }
 )
 
-router.use(moduleValidation.hasPermissions(
+router.get('/product', authRequired, moduleValidation.hasPermissions(
     moduleValidation.MODULES.PRODUCT
-))
-
-router.get('/product', authRequired, getProducts);
-router.post('/add_product', authRequired, checkForDuplicates, createProduct);
-router.put('/update_product/:id', authRequired, updateProduct);
-router.put("/product/toggle/:id", authRequired, toggleProductStatus);
-router.delete('/product/:id', authRequired, deleteProduct);
-router.get('/product/:id', authRequired, getProductsByCategory);
-router.get('/Singleproduct/:id', authRequired, getProduct);
-router.get('/AllProducts', authRequired, getAllProduct);
-=======
-router.get('/product', getProducts);
-router.post('/add_product', checkForDuplicates, createProduct);
-router.put('/update_product/:id', updateProduct);
-router.put('/product/toggle/:id', toggleProductStatus);
-router.delete('/product/:id', deleteProduct);
-router.get('/product/:id', getProductsByCategory);
->>>>>>> Stashed changes
+), getProducts);
+router.post('/add_product', authRequired, checkForDuplicates, moduleValidation.hasPermissions(
+    moduleValidation.MODULES.PRODUCT
+), createProduct);
+router.put('/update_product/:id', authRequired, moduleValidation.hasPermissions(
+    moduleValidation.MODULES.PRODUCT
+), updateProduct);
+router.put("/product/toggle/:id", authRequired, moduleValidation.hasPermissions(
+    moduleValidation.MODULES.PRODUCT
+), toggleProductStatus);
+router.delete('/product/:id', authRequired, moduleValidation.hasPermissions(
+    moduleValidation.MODULES.PRODUCT
+), deleteProduct);
+router.get('/product/:id', authRequired, moduleValidation.hasPermissions(
+    moduleValidation.MODULES.PRODUCT
+), getProductsByCategory);
+// router.get('/Singleproduct/:id', authRequired, getProduct);
+// router.get('/AllProducts', authRequired, getAllProduct);
 
 //Detalles
 router.get('/product_detail/:id', authRequired, getDetailProduct)

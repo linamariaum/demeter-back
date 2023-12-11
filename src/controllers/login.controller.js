@@ -4,6 +4,7 @@ import { createAccessToken } from '../libs/jwt.js';
 import jwt from 'jsonwebtoken';
 import { TOKEN_SECRET } from '../config.js';
 import transporter from '../transporter.cjs';
+import { getUser } from './user.controller.js';
 
 // --------------------------- EditProfile ------------------------------------- //
 
@@ -59,20 +60,46 @@ export const changePassword = async (req, res) => {
 
 // --------------------------- Login ------------------------------------- //
 
+// export const getCurrentUser = async (req, res) => {
+
+//     const token = req.cookies.token
+//     console.log(token)
+//     const user = jwt.decode(token, TOKEN_SECRET)
+//     console.log("user")
+//     console.log(user)
+
+//     req.params = {
+//         ...req.params,
+//         id: user?.id || user.ID_User
+//     }
+
+//     return getUser(req, res)
+// };
+
 export const getCurrentUser = async (req, res) => {
+    try {
+        const token = req.cookies.token;
+        console.log('Token:', token); // Verifica si el token está llegando correctamente
 
-    const token = req.cookies.token
-    console.log(token)
-    const user = jwt.decode(token, TOKEN_SECRET)
-    console.log("user")
-    console.log(user)
+        const user = jwt.decode(token, TOKEN_SECRET);
+        console.log('Decoded User:', user); // Verifica si el token se decodifica correctamente
 
-    req.params = {
-        ...req.params,
-        id: user?.id || user.ID_User
+        const userId = user?.id || user?.ID_User;
+        console.log('User ID:', userId); // Verifica el ID del usuario obtenido
+
+        if (!userId) {
+            return res.status(401).json({ error: "No se pudo obtener el ID del usuario" });
+        }
+
+        req.params = {
+            ...req.params,
+            id: userId
+        };
+
+        return getUser(req, res);
+    } catch (error) {
+        return res.status(500).json({ message: error.message });
     }
-
-    return getUser(req, res)
 };
 
 export const login = async (req, res) => {

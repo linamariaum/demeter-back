@@ -18,14 +18,20 @@ const moduleValidation = new ModuleValidationMiddleware(
     }
 )
 
-router.use(moduleValidation.hasPermissions(
+router.get('/waiter', authRequired, moduleValidation.hasPermissions(
     moduleValidation.MODULES.WAITER
-))
-
-router.get('/waiter', authRequired, getWaiters);
-router.get('/waiter_status', authRequired, getWaiterByState);
-router.get('/waiter/:id', authRequired, getWaiter);
-router.post('/add_waiter', authRequired, duplicateWaiter, createWaiter);
-router.put('/waiter/:id', authRequired, updateWaiter);
+), getWaiters);
+router.get('/waiter_status', authRequired, moduleValidation.hasPermissions(
+    moduleValidation.MODULES.WAITER
+), getWaiterByState);
+router.get('/waiter/:id', authRequired, moduleValidation.hasPermissions(
+    moduleValidation.MODULES.WAITER
+), getWaiter);
+router.post('/add_waiter', authRequired, duplicateWaiter, moduleValidation.hasPermissions(
+    moduleValidation.MODULES.WAITER
+), createWaiter);
+router.put('/waiter/:id', authRequired, moduleValidation.hasPermissions(
+    moduleValidation.MODULES.WAITER
+), updateWaiter);
 
 export default router;

@@ -1,7 +1,4 @@
-<<<<<<< Updated upstream
 import { Op } from 'sequelize';
-=======
->>>>>>> Stashed changes
 import { sale } from '../models/sale.model.js';
 import { saleDetail } from '../models/saledetail.model.js';
 import { product } from '../models/product.model.js';

@@ -1,9 +1,6 @@
 import app from './app.js'
 import { sequelize } from './db/dataBase.js'
 
-import './models/permissionModule.model.js'
-import './models/losses.model.js'
-
 async function main() {
     try{
         await sequelize.sync({force: false})

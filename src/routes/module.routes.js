@@ -3,7 +3,7 @@ import { getModuleNames, getModuleNamesAndRoleState, removeMultipleModulePermiss
 
 const router = Router()
 
-// router.get("/getModuleNames", getModuleNames)
+router.get("/getModuleNames", getModuleNames)
 router.get("/getModuleNamesAndRoleState/:id", getModuleNamesAndRoleState)
 router.post("/removeMultipleModulePermissions/:roleId", removeMultipleModulePermissions)
 

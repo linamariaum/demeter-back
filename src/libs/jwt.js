@@ -7,11 +7,7 @@ export function createAccessToken(payload){
             payload,
             TOKEN_SECRET,
             {
-<<<<<<< Updated upstream
                 expiresIn: 7600, // 2 Horas = 7600 segundos
-=======
-                expiresIn: 7600, // 2horas = 7600 segundos
->>>>>>> Stashed changes
             },
             (err, token) => {
                 if(err) reject(err);

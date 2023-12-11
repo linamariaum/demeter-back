@@ -30,7 +30,6 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(cookieParser());
 
-
 app.use(supplierRoutes)
 app.use(shoppingRoutes)
 app.use(shoppingdetailRoute)
@@ -39,16 +38,11 @@ app.use(category_productsRoutes);
 app.use(suppliesRoutes);
 app.use(roleRoutes);
 app.use(userRoutes);
-<<<<<<< Updated upstream
 app.use(loginRoutes);
 app.use(waiterRoutes);
 app.use(RoutesSale);
 app.use(RoutesSaleDetail);
-=======
 app.use(productRoutes);
->>>>>>> Stashed changes
-app.use(RoutesSale);
-app.use(RoutesSaleDetail);
 app.use(dashboardRoutes);
 app.use(lossesRoutes);
 

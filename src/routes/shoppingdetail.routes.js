@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import {getshoppingDetail, getShopDetail, createShopping } from '../controllers/shoppingdetail.controller.js'
+import { getshoppingDetail, getShopDetail, createShopping } from '../controllers/shoppingdetail.controller.js'
 
 import { authRequired } from '../middlewares/validateToken.js'
 import ModuleValidationMiddleware from '../middlewares/ModuleValidation.middleware.js'
@@ -18,11 +18,13 @@ const moduleValidation = new ModuleValidationMiddleware(
     }
 )
 
-router.use(moduleValidation.hasPermissions(
+router.get('/shoppingdetail', authRequired, moduleValidation.hasPermissions(
     moduleValidation.MODULES.SHOPPING
-))
-
-router.get('/shoppingdetail', authRequired, getshoppingDetail);
-router.get('/shoppingdetail/:id', authRequired, getShopDetail);
-router.post('/shoppingdetail', authRequired, createShopping);
+), getshoppingDetail);
+router.get('/shoppingdetail/:id', authRequired, moduleValidation.hasPermissions(
+    moduleValidation.MODULES.SHOPPING
+), getShopDetail);
+router.post('/shoppingdetail', authRequired, moduleValidation.hasPermissions(
+    moduleValidation.MODULES.SHOPPING
+), createShopping);
 

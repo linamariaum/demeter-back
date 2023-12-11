@@ -18,17 +18,27 @@ const moduleValidation = new ModuleValidationMiddleware(
     }
 )
 
-router.use(moduleValidation.hasPermissions(
+router.get("/supplies", authRequired, moduleValidation.hasPermissions(
     moduleValidation.MODULES.SUPPLIES
-))
-
-router.get("/supplies", authRequired, getSupplies);
-router.post("/supplies", authRequired, checkForDuplicates, createSupplies);
-router.put("/supplies/disable/:id", authRequired, disableSupplies);
-router.put("/supplies/update/:id", authRequired, updateSupplies);
-router.put("/supplies/updateUnitSupplieById/:id/:quantity", authRequired, updateUnitSupplieByIdAndSend);
-router.delete("/supplies/:id", authRequired, deleteSupplies);
-router.get("/supplies/:id", authRequired, getSupplie);
+), getSupplies);
+router.post("/supplies", authRequired, checkForDuplicates, moduleValidation.hasPermissions(
+    moduleValidation.MODULES.SUPPLIES
+), createSupplies);
+router.put("/supplies/disable/:id", authRequired, moduleValidation.hasPermissions(
+    moduleValidation.MODULES.SUPPLIES
+), disableSupplies);
+router.put("/supplies/update/:id", authRequired, moduleValidation.hasPermissions(
+    moduleValidation.MODULES.SUPPLIES
+), updateSupplies);
+router.put("/supplies/updateUnitSupplieById/:id/:quantity", authRequired, moduleValidation.hasPermissions(
+    moduleValidation.MODULES.SUPPLIES
+), updateUnitSupplieByIdAndSend);
+router.delete("/supplies/:id", authRequired, moduleValidation.hasPermissions(
+    moduleValidation.MODULES.SUPPLIES
+), deleteSupplies);
+router.get("/supplies/:id", authRequired, moduleValidation.hasPermissions(
+    moduleValidation.MODULES.SUPPLIES
+), getSupplie);
 
 
 export default router;

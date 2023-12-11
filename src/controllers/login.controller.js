@@ -9,12 +9,12 @@ import { getUser } from './user.controller.js';
 // --------------------------- EditProfile ------------------------------------- //
 
 export const editProfile = async (req, res) => {
-    const { id } = req.params
-
     try {
+        const userId = req.user.id;
+
         const { Name_User, LastName_User, Email } = req.body
 
-        const updateUser = await user.findByPk(id)
+        const updateUser = await user.findByPk(userId)
 
         updateUser.Name_User = Name_User
         updateUser.LastName_User = LastName_User
@@ -29,25 +29,25 @@ export const editProfile = async (req, res) => {
 };
 
 export const changePassword = async (req, res) => {
-    const { id } = req.params
-
     try {
+        const userId = req.user.id;
 
         const { Password, NewPassword } = req.body;
 
-        const userFound = await user.findOne({ where: { ID_User: id } });
+        const userFound = await user.findByPk(userId);
+        if (!userFound) {
+            return res.status(404).json({ message: "Usuario no encontrado" });
+        }
 
-        const isMatch = await bcrypt.compare(Password, userFound.Password)
+        const isMatch = await bcrypt.compare(Password, userFound.Password);
+        if (!isMatch) {
+            return res.status(400).json({ message: "Contraseña incorrecta" });
+        }
 
-        if (!isMatch) return res.status(400).json({ message: "Contraseña incorrecta" });
+        const newPasswordHash = await bcrypt.hash(NewPassword, 10);
 
-        const passwordHast = await bcrypt.hash(NewPassword, 10)
-
-        const updateUser = await user.findByPk(id)
-
-        updateUser.Password = passwordHast
-
-        await updateUser.save();
+        userFound.Password = newPasswordHash;
+        await userFound.save();
         
         const token = await createAccessToken({ ID_User: userFound.ID_User });
         res.cookie('token', token);

@@ -23,6 +23,9 @@ router.use(moduleValidation.hasPermissions(
 ))
 
 router.get('/role', authRequired, getRoles);
+router.post('/role/addModuleToRole/:roleId/:moduleId', authRequired, addModuleToRole);
+router.post('/role/addMultipleModuleAndRole/:roleId', authRequired, addMultipleModuleAndRole);
+router.post('/role/addMultipleModuleAndRoleAndDeleteIfExists/:roleId', authRequired, addMultipleModuleAndRoleAndDeleteIfExists);
 router.get('/role_status', authRequired, getRoleByState);
 router.get('/role/:id', authRequired, getRole);
 router.post('/add_role', authRequired, checkForDuplicates, createRoles);

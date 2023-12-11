@@ -1,4 +1,5 @@
 import { Router } from 'express';
+<<<<<<< Updated upstream
 
 import { getShopping, getShop, createShopping, disableShop, createMultipleShopping, getShopingAndShopingDetails, getShopingByProvider, getShoppingAndSuppliesBySupplierId, getShoppingAndSuppliesBySupplierIdAndDate } from '../controllers/shopping.controller.js'
 
@@ -31,6 +32,21 @@ router.get('/getShoppingAndSuppliesBySupplierId/:id', authRequired, getShoppingA
 router.get('/getShoppingAndSuppliesBySupplierIdAndDate/:id/:date', authRequired, getShoppingAndSuppliesBySupplierIdAndDate);
 router.get('/getShopingAndShopingDetails', authRequired, getShopingAndShopingDetails);
 router.put("/shopping/disable/:id", authRequired, disableShop);
+=======
+import { getShopping, getShop, createShopping, disableShop, createMultipleShopping, getShopingAndShopingDetails, getShopingByProvider, getShoppingAndSuppliesBySupplierId, getShoppingAndSuppliesBySupplierIdAndDate } from '../controllers/shopping.controller.js'
+
+const router = Router();
+
+router.get('/shopping', getShopping);
+router.get('/shopping/:id', getShop);
+router.post('/shopping', createShopping);
+router.post('/multpleShopping', createMultipleShopping);
+router.get('/getShopingByProvider', getShopingByProvider);
+router.get('/getShoppingAndSuppliesBySupplierId/:id', getShoppingAndSuppliesBySupplierId);
+router.get('/getShoppingAndSuppliesBySupplierIdAndDate/:id/:date', getShoppingAndSuppliesBySupplierIdAndDate);
+router.get('/getShopingAndShopingDetails', getShopingAndShopingDetails);
+router.put("/shopping/disable/:id", disableShop);
+>>>>>>> Stashed changes
 
 
 export default router;

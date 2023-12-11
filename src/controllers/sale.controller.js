@@ -1,5 +1,4 @@
 import { sale } from '../models/sale.model.js';
-import { Op } from 'sequelize';
 
 export const getSale = async (req, res) => {
     try {
@@ -24,15 +23,13 @@ export const getOneSale = async (req, res) => {
 
 export const createSale = async(req, res) => {
     
-    const{Total, SubTotal, User_ID} = req.body
+    const{Total, SubTotal} = req.body
     
     try {
     const newSale = await sale.create({ 
         
         Total: Total,
-        SubTotal : SubTotal,
-        User_ID : User_ID,
-        Payment : "Vacio"
+        SubTotal : SubTotal
        
     })
 
@@ -67,7 +64,7 @@ export const updateSale = async (req, res) => {
 }
 export const pay = async (req, res) => {
     try {
-        const {ID_Sale, Payment} = req.body
+        const {ID_Sale} = req.body
         
         const existingSale = await sale.findByPk(ID_Sale);
 
@@ -76,8 +73,7 @@ export const pay = async (req, res) => {
         }
 
         existingSale.StatePay = false;
-        existingSale.Payment = Payment;
-        
+       
         await existingSale.save();
 
         res.json(existingSale);
@@ -105,51 +101,3 @@ export const deleteSale = async (req, res) => {
         return res.status(500).json({ message: error.message });
     }
 }
-
-export const getSaleUp = async (req, res) => {
-    try {
-        const Sales = await sale.findAll({
-            where: {
-                StatePay: true
-            }
-        });
-
-        res.json(Sales);
-    } catch (error) {
-        return res.status(500).json({ message: error.message });
-    }
-};
-
-export const getSaleDown = async (req, res) => {
-
-    try {
-        const Sales = await sale.findAll({
-            where: {
-                StatePay: false
-            }
-        });
-
-        res.json(Sales);
-    } catch (error) {
-        return res.status(500).json({ message: error.message });
-    }
-};
-
-export const getSalesByTimeRange = async (req, res) => {
-    try {
-        const { startTime, endTime } = req.query; 
-
-        const sales = await sale.findAll({
-            where: {
-                createdAt: {
-                    [Op.between]: [startTime, endTime],
-                },
-                StatePay: 0,
-            },
-        });
-
-        res.json(sales);
-    } catch (error) {
-        return res.status(500).json({ message: error.message });
-    }
-};

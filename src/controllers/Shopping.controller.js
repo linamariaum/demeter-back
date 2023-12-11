@@ -79,6 +79,34 @@ export const getShoppingAndSuppliesBySupplierId = async (req, res) => {
                 },
                 {
                     model: supplies,
+<<<<<<< Updated upstream
+=======
+                }
+            ]
+        })
+
+        res.json(shoppingAndShoppingDetails);
+    } catch (error) {
+        return res.status(500).json({ message: error.message });
+    }
+};
+
+export const getShoppingAndSuppliesBySupplierIdAndDate = async (req, res) => {
+    try {
+
+        const { id, date } = req.params
+        const shoppingAndShoppingDetails = await shoppingDetail.findAll({
+            include: [
+                {
+                    model: shopping,
+                    where: {
+                        Supplier_ID: id,
+                        Datetime: date
+                    },
+                },
+                {
+                    model: supplies,
+>>>>>>> Stashed changes
                 }
             ]
         })

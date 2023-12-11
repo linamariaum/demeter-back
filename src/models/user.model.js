@@ -44,7 +44,11 @@ export const user = sequelize.define('Users', {
             },
             customValidate(value) {
                 if (!/^[A-ZÑñ][a-zA-ZÑñ\s]*$/.test(value)) {
+<<<<<<< Updated upstream
                     throw new Error('Se debe comenzar con mayúscula y puede contener letras, espacios y la letra "ñ".');
+=======
+                    throw new Error('Nombre: Se debe comenzar con mayúscula y puede contener letras, espacios y la letra "ñ".');
+>>>>>>> Stashed changes
                 }
             }
         }
@@ -59,7 +63,11 @@ export const user = sequelize.define('Users', {
             },
             customValidate(value) {
                 if (!/^[A-ZÑñ][a-zA-ZÑñ\s]*$/.test(value)) {
+<<<<<<< Updated upstream
                     throw new Error('Se debe comenzar con mayúscula y puede contener letras, espacios y la letra "ñ".');
+=======
+                    throw new Error('Nombre: Se debe comenzar con mayúscula y puede contener letras, espacios y la letra "ñ".');
+>>>>>>> Stashed changes
                 }
             }
         }

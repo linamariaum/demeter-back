@@ -25,6 +25,7 @@ export const productCategory =  sequelize.define('ProductCategorys', {
         }
     },
 
+
     State: {
         type: DataTypes.BOOLEAN,
         defaultValue: true,

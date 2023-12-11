@@ -30,12 +30,13 @@ export const getShop = async (req, res) => {
 
 export const createShopping = async (req, res) => {
     try {
-        const { Datetime, Total, State } = req.body;
+        const { Invoice_Number, Datetime, Total, State } = req.body;
 
         const createShopping = await shopping.create({
             Datetime,
             Total,
-            State
+            State,
+            Invoice_Number
         });
 
         res.json(createShopping);

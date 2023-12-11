@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import { getRoles, getRoleByState, getRole, checkForDuplicates, createRoles, updateRole, toggleRoleStatus, deleteRole,  } from '../controllers/role.controller.js';
+import { getRoles, getRole, getRoleByState, checkForDuplicates, createRoles, updateRole, toggleRoleStatus, deleteRole, addModuleToRole, addMultipleModuleAndRole, addMultipleModuleAndRoleAndDeleteIfExists, } from '../controllers/role.controller.js';
 
 import { authRequired } from '../middlewares/validateToken.js'
 import ModuleValidationMiddleware from '../middlewares/ModuleValidation.middleware.js'

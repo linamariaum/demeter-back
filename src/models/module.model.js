@@ -31,11 +31,17 @@ export const module = sequelize.define('Modules', {
 });
 
 module.hasMany(modulePermission, {
-    foreignKey: 'Module_ID',
+    foreignKey: {
+        name: 'Module_ID',
+        allowNull: false,
+    },
     sourceKey: 'ID_Module'
 })
 
 modulePermission.belongsTo(module, {
-    foreignKey: 'Module_ID',
+    foreignKey: {
+        name: 'Module_ID',
+        allowNull: false,
+    },
     targetKey: 'ID_Module'
 })

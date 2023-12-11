@@ -62,21 +62,33 @@ export const product =  sequelize.define('Products', {
 });
 
 product.hasMany(productDetail, {
-    foreignKey: 'Product_ID',
+    foreignKey: {
+        name: 'Product_ID',
+        allowNull: false,
+    },
     sourceKey: 'ID_Product'
 })
 
 productDetail.belongsTo(product, {
-    foreignKey: 'Product_ID',
+    foreignKey: {
+        name: 'Product_ID',
+        allowNull: false,
+    },
     targetKey: 'ID_Product'
 })
 
 product.hasMany(saleDetail, {
-    foreignKey: 'Product_ID',
+    foreignKey: {
+        name: 'Product_ID',
+        allowNull: false,
+    },
     sourceKey: 'ID_Product'
 })
 
 saleDetail.belongsTo(product, {
-    foreignKey: 'Product_ID',
+    foreignKey: {
+        name: 'Product_ID',
+        allowNull: false,
+    },
     targetKey: 'ID_Product'
 })

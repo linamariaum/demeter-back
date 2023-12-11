@@ -93,11 +93,17 @@ export const sale = sequelize.define('Sales', {
 });
 
 sale.hasMany(saleDetail, {
-    foreignKey: 'Sale_ID',
+    foreignKey: {
+        name: 'Sale_ID',
+        allowNull: false,
+    },
     sourceKey: 'ID_Sale',
 })
 
 saleDetail.belongsTo(sale, {
-    foreignKey: 'Sale_ID',
+    foreignKey: {
+        name: 'Sale_ID',
+        allowNull: false,
+    },
     targetKey: 'ID_Sale',
 })

@@ -106,11 +106,17 @@ export const supplier = sequelize.define('Suppliers', {
 });
 
 supplier.hasMany(shopping, {
-    foreignKey: 'Supplier_ID',
+    foreignKey: {
+        name: 'Supplier_ID',
+        allowNull: false,
+    },
     sourceKey: 'ID_Supplier'
 })
 
 shopping.belongsTo(supplier, {
-    foreignKey: 'Supplier_ID',
+    foreignKey: {
+        name: 'Supplier_ID',
+        allowNull: false,
+    },
     targetKey: 'ID_Supplier'
 })

@@ -29,11 +29,17 @@ export const typeUser = sequelize.define('TypeUsers', {
 });
 
 typeUser.hasMany(user, {
-    foreignKey: 'TypeUser_ID',
+    foreignKey: {
+        name: 'TypeUser_ID',
+        allowNull: false,
+    },
     sourceKey: 'ID_TypeUser'
 })
 
 user.belongsTo(typeUser, {
-    foreignKey: 'TypeUser_ID',
+    foreignKey: {
+        name: 'TypeUser_ID',
+        allowNull: false,
+    },
     targetKey: 'ID_TypeUser'
 })

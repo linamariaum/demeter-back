@@ -9,6 +9,8 @@ import category_productsRoutes from './routes/productcategory.routes.js'
 import suppliesRoutes from '../src/routes/supplies.routes.js';
 import roleRoutes from './routes/role.routes.js';
 import userRoutes from './routes/user.routes.js';
+import waiterRoutes from './routes/waiter.routes.js';
+import loginRoutes from './routes/login.routes.js';
 import supplierRoutes from './routes/supplier.routes.js'
 import shoppingRoutes from './routes/shopping.routes.js'
 import shoppingdetailRoute from './routes/shopping.routes.js'
@@ -41,6 +43,8 @@ app.use(category_productsRoutes);
 app.use(suppliesRoutes);
 app.use(roleRoutes);
 app.use(userRoutes);
+app.use(loginRoutes);
+app.use(waiterRoutes);
 app.use(RoutesSale);
 app.use(RoutesSaleDetail);
 app.use(RoutesSale);

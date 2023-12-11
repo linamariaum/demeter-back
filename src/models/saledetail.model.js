@@ -12,7 +12,6 @@ export const saleDetail = sequelize.define('SaleDetails', {
     Lot: {
         type: DataTypes.INTEGER, 
         allowNull: false,
-        defaultValue: 1,
         validate: {
             notNull:{
                 msg: "La cantidad del producto es requerido."

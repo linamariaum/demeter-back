@@ -1,4 +1,3 @@
-import { sequelize } from '../db/dataBase.js';
 import { Op } from 'sequelize';
 import { sale } from '../models/sale.model.js';
 import { saleDetail } from '../models/saledetail.model.js';

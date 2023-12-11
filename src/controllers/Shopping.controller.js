@@ -74,10 +74,10 @@ export const getShoppingAndSuppliesBySupplierId = async (req, res) => {
                     model: shopping,
                     where: {
                         Supplier_ID: id
-                    }
+                    },
                 },
                 {
-                    model: supplies
+                    model: supplies,
                 }
             ]
         })
@@ -95,7 +95,8 @@ export const getShopingByProvider = async (req, res) => {
             include: [{
                 model: supplier,
                 required: true
-            }]
+            }],
+            group: "Datetime"
         })
 
         res.json(shoppingBySupplier);

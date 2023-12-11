@@ -1,11 +1,27 @@
 import { role } from '../models/role.model.js';
 import { typeUser } from '../models/typeuser.model.js';
+import { user } from '../models/user.model.js';
 import { Op } from 'sequelize';
 
 export const getRoles = async (req, res) => {
     try {
         const roles = await role.findAll()
         res.json(roles);
+    } catch (error) {
+        return res.status(500).json({ message: error.message });
+    }
+};
+
+export const getRoleByState = async (req, res) => {
+
+    try {
+        const RoleStatus = await role.findAll({
+            where: {
+                State: 1
+            }
+        });
+
+        res.json(RoleStatus);
     } catch (error) {
         return res.status(500).json({ message: error.message });
     }
@@ -71,6 +87,18 @@ export const updateRole = async (req, res) => {
 
         const updateRole = await role.findByPk(id)
 
+        if (!updateRole) {
+            return res.status(404).json({ message: 'Rol no encontrado' });
+        }
+
+        const roleNameLowerCase = updateRole.Name_Role.toLowerCase();
+
+        if (roleNameLowerCase === "administrador") {
+            return res.status(403).json({
+                message: "No se puede actualizar el rol de Administrador.",
+            });
+        }
+
         updateRole.Name_Role = Name_Role
 
         await updateRole.save()
@@ -93,6 +121,14 @@ export const toggleRoleStatus = async (req, res) => {
             return res.status(404).json({ message: 'Rol no encontrado' });
         };
 
+        const roleNameLowerCase = statusRole.Name_Role.toLowerCase();
+
+        if (roleNameLowerCase === "administrador") {
+            return res.status(403).json({
+                message: "No se puede actualizar el estado del rol de Administrador.",
+            });
+        };
+
         statusRole.State = !statusRole.State;
 
         await statusRole.save();
@@ -104,35 +140,158 @@ export const toggleRoleStatus = async (req, res) => {
 };
 
 export const deleteRole = async (req, res) => {
+    const { id } = req.params
+
     try {
-        const { id } = req.params
+
+        const roleToDelete = await role.findOne({
+            where: { ID_Role: id },
+        });
+
+        if (!roleToDelete) {
+            return res.status(404).json({ message: 'Rol no encontrado' });
+        };
+
+        const roleNameLowerCase = roleToDelete.Name_Role.toLowerCase();
+
+        if (roleNameLowerCase === "administrador") {
+            return res.status(403).json({
+                message: "No se puede eliminar el rol de Administrador.",
+                useDelete: false
+            });
+        };
+
+        const existRoleInUsers = await user.findOne({
+            where: {
+                Role_ID: id
+            }
+        })
+
+        if (existRoleInUsers) {
+            return res.status(403).json({
+                message: "El rol no puede ser eliminado porque esta asociado a un usuario.",
+                useDelete: false
+            })
+        }
 
         await role.destroy({
             where: { ID_Role: id, }
         });
+
+        return res.sendStatus(204);
     } catch (error) {
         return res.status(500).json({ message: error.message });
     }
 };
 
-// --------------------------- TypeUser --------------------------- //
+// ------------------------------------- PERMISOS -------------------------------------- //
 
-export const datosType = async (req, res) => {
+export const addModuleToRole = async (req, res) => {
     try {
-        const datos = [
-            { ID_TypeUser: 1, Name_Type: 'Empleados' },
-            { ID_TypeUser: 2, Name_Type: 'Meseros' }
-        ];
+        const { moduleId, roleId } = req.params;
 
-        const result = await Promise.all(datos.map(async (dato) => {
-            return await typeUser.create(dato);
-        }));
+        const existingRole = await modulePermission.findOne({
+            where: {
+                Role_ID: roleId,
+                Module_ID: moduleId
+            },
+        });
+
+        if (existingRole) {
+            return res.status(400).json({
+                error: 'El rol ya tiene este modulo asignado',
+            });
+        }
+
+        const createdModulePermission = await modulePermission.create({
+            Role_ID: roleId,
+            Module_ID: moduleId
+        })
 
         res.json({
-            message: "Datos insertados correctamente",
-            datos: result,
-        });
+            data: createdModulePermission,
+            message: "Modulo agregado correctamente"
+        })
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        return res.status(500).json({ message: error.message });
+    }
+};
+
+export const addMultipleModuleAndRole = async (req, res) => {
+    try {
+        const modules = req.body;
+        const { roleId } = req.params
+        const data = []
+
+        for await (const moduleId of modules) {
+            const existingRole = await modulePermission.findOne({
+                where: {
+                    Role_ID: roleId,
+                    Module_ID: moduleId
+                },
+            });
+
+            if (existingRole) {
+                return res.status(400).json({
+                    error: 'El rol ya tiene este modulo asignado',
+                });
+            }
+
+            const createdModulePermission = await modulePermission.create({
+                Role_ID: roleId,
+                Module_ID: moduleId
+            })
+
+            data.push(createdModulePermission)
+        }
+
+        res.json({
+            data,
+            message: "Modulo agregado correctamente"
+        })
+    } catch (error) {
+        return res.status(500).json({ message: error.message });
+    }
+};
+
+export const addMultipleModuleAndRoleAndDeleteIfExists = async (req, res) => {
+    try {
+        const modules = req.body;
+        const { roleId } = req.params
+        const data = []
+
+        for await (const moduleId of modules) {
+            const existingRole = await modulePermission.findOne({
+                where: {
+                    Role_ID: roleId,
+                    Module_ID: moduleId
+                },
+            });
+
+            if (existingRole) {
+                await modulePermission.destroy({
+                    where: {
+                        Role_ID: roleId,
+                        Module_ID: moduleId
+                    }
+                })
+
+                continue
+            }
+
+            const createdModulePermission = await modulePermission.create({
+                Role_ID: roleId,
+                Module_ID: moduleId
+            })
+
+            data.push(createdModulePermission)
+        }
+
+        res.json({
+            data,
+            message: "Modulo agregado correctamente"
+        })
+    } catch (error) {
+        return res.status(500).json({ message: error.message });
     }
 };

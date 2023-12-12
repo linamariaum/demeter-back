@@ -49,5 +49,4 @@ router.put("/shopping/disable/:id", authRequired, moduleValidation.hasPermission
     moduleValidation.MODULES.SHOPPING
 ), disableShop);
 
-
 export default router;

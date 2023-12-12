@@ -17,10 +17,6 @@ const router = Router();
 //     }
 // )
 
-// router.use(moduleValidation.hasPermissions(
-//     moduleValidation.MODULES.USER
-// ))
-
 router.get('/user', authRequired, getUsers);
 router.get('/user_status', authRequired, getUserByState);
 router.get('/user/:id', authRequired, getUser);
@@ -29,5 +25,9 @@ router.put('/user/:id', authRequired, updateUser);
 router.put("/user/toggle/:id", authRequired, toggleUserStatus);
 router.delete('/user/:id', authRequired, deleteUser);
 router.get('/existUserByEmailOrId/:email/:document/:userType(supplier|user)', existUserByEmailOrId);
+
+// authRequired, moduleValidation.hasPermissions(
+//     moduleValidation.MODULES.USER
+// ),
 
 export default router;

@@ -124,12 +124,15 @@ VALUES
 ("supplier");
 ("categoryProduct");
 
+
 INSERT INTO typeusers(Name_Type)
 VALUES
 ("Empleados"),
 ("Meseros");
 
+
 INSERT INTO `roles` (`ID_Role`, `Name_Role`, `State`) VALUES (NULL, 'Administrador', '1');
+
 
 INSERT INTO `modulepermissions` (`ID_ModulePermission`, `Role_ID`, `Module_ID`) VALUES (NULL, '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11'), (NULL, '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1');
 

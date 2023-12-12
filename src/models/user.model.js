@@ -8,23 +8,23 @@ export const user = sequelize.define('Users', {
 
     ID_User: {
         type: DataTypes.INTEGER,
-        primaryKey: true, 
+        primaryKey: true,
         autoIncrement: true
-    }, 
+    },
 
     Type_Document: {
-        type: DataTypes.STRING(15), 
-        allowNull: false, 
-        validate:{
-            notNull:{
+        type: DataTypes.STRING(15),
+        allowNull: false,
+        validate: {
+            notNull: {
                 msg: "El tipo de documento es requerido"
             }
         }
     },
 
     Document: {
-        type: DataTypes.INTEGER, 
-        allowNull: false, 
+        type: DataTypes.INTEGER,
+        allowNull: false,
         unique: true,
         validate: {
             notNull: {
@@ -37,8 +37,8 @@ export const user = sequelize.define('Users', {
     },
 
     Name_User: {
-        type: DataTypes.STRING(30), 
-        allowNull: false, 
+        type: DataTypes.STRING(30),
+        allowNull: false,
         validate: {
             notNull: {
                 msg: 'El nombre es requerido'
@@ -51,10 +51,10 @@ export const user = sequelize.define('Users', {
         }
     },
 
-    LastName_User:{
-        type: DataTypes.STRING(30), 
-        allowNull: false, 
-        validate:{
+    LastName_User: {
+        type: DataTypes.STRING(30),
+        allowNull: false,
+        validate: {
             notNull: {
                 msg: 'El apellido es requerido'
             },
@@ -68,14 +68,14 @@ export const user = sequelize.define('Users', {
 
     Email: {
         type: DataTypes.STRING(80),
-        allowNull: true, 
+        allowNull: true,
         unique: true
-    }, 
+    },
 
     Password: {
         type: DataTypes.STRING,
         allowNull: true
-        
+
     },
 
     Restaurant: {
@@ -104,7 +104,6 @@ user.hasMany(shopping, {
     },
     sourceKey: 'ID_User'
 })
-
 shopping.belongsTo(user, {
     foreignKey: {
         name: 'User_ID',
@@ -117,7 +116,6 @@ user.hasMany(sale, {
     foreignKey: 'User_ID',
     sourceKey: 'ID_User'
 })
-
 sale.belongsTo(user, {
     foreignKey: 'User_ID',
     targetKey: 'ID_User'

@@ -1,4 +1,5 @@
 import { Router } from 'express';
+
 import { getLosses, getLoss, createLoss } from '../controllers/losses.controller.js';
 
 import { authRequired } from '../middlewares/validateToken.js'

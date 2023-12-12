@@ -37,7 +37,6 @@ export const productDetail = sequelize.define('ProductDetails', {
             }
         }
     }
-
 }, {
     timestamps: false
 });

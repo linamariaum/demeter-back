@@ -1,6 +1,5 @@
 import { modulePermission } from '../models/modulePermission.model.js';
 import { role } from '../models/role.model.js';
-import { typeUser } from '../models/typeuser.model.js';
 import { user } from '../models/user.model.js';
 import { Op } from 'sequelize';
 

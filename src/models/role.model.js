@@ -44,7 +44,6 @@ role.hasMany(user, {
     foreignKey: 'Role_ID',
     sourceKey: 'ID_Role'
 })
-
 user.belongsTo(role, {
     foreignKey: 'Role_ID',
     targetKey: 'ID_Role'
@@ -57,7 +56,6 @@ role.hasMany(modulePermission, {
     },
     sourceKey: 'ID_Role'
 })
-
 modulePermission.belongsTo(role, {
     foreignKey: {
         name: 'Role_ID',

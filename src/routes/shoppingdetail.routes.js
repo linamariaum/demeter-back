@@ -28,3 +28,4 @@ router.post('/shoppingdetail', authRequired, moduleValidation.hasPermissions(
     moduleValidation.MODULES.SHOPPING
 ), createShopping);
 
+export default router;

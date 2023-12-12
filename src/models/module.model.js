@@ -37,7 +37,6 @@ module.hasMany(modulePermission, {
     },
     sourceKey: 'ID_Module'
 })
-
 modulePermission.belongsTo(module, {
     foreignKey: {
         name: 'Module_ID',

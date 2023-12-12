@@ -1,5 +1,4 @@
 import { saleDetail } from '../models/saledetail.model.js';
-import { Op } from 'sequelize';
 
 export const createSaleDetail = async (req, res) => {
     const {Sale_ID, Product_ID} = req.body
@@ -14,7 +13,6 @@ export const createSaleDetail = async (req, res) => {
         return res.status(500).json({ message: error.message });
     }
 };
-
 
 export const getDetails = async (req, res) => {
     try {
@@ -36,7 +34,7 @@ export const createManyDetails = async (req, res) => {
     } catch (error) {
         return res.status(500).json({ message: error.message });
     }
-}
+};
 
 export const lotUpd = async (req, res) => {
     try {
@@ -56,7 +54,7 @@ export const lotUpd = async (req, res) => {
     } catch (error) {
         return res.status(500).json({ message: error.message });
     }
-}
+};
 
 export const deleteSaleDetail = async (req, res) => {
     try {
@@ -74,4 +72,4 @@ export const deleteSaleDetail = async (req, res) => {
     } catch (error) {
         return res.status(500).json({ message: error.message });
     }
-}
+};

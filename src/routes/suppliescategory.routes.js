@@ -6,7 +6,6 @@ import { authRequired } from '../middlewares/validateToken.js'
 import ModuleValidationMiddleware from '../middlewares/ModuleValidation.middleware.js'
 
 const router = Router();
-
 const moduleValidation = new ModuleValidationMiddleware(
     ({
         res,

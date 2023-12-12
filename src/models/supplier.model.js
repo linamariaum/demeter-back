@@ -6,40 +6,40 @@ export const supplier = sequelize.define('Suppliers', {
 
     ID_Supplier: {
         type: DataTypes.INTEGER,
-        primaryKey: true, 
+        primaryKey: true,
         autoIncrement: true
-    }, 
+    },
 
     Type_Document: {
-        type: DataTypes.STRING(15), 
-        allowNull: false, 
-        validate:{
-            notNull:{
+        type: DataTypes.STRING(15),
+        allowNull: false,
+        validate: {
+            notNull: {
                 msg: "El tipo de documento es requerido"
-            }, 
-            
+            },
+
         }
     },
 
     Document: {
-        type: DataTypes.STRING(10), 
-        allowNull: false, 
+        type: DataTypes.STRING(10),
+        allowNull: false,
         unique: true,
         validate: {
             notNull: {
                 msg: 'El documento es requerido'
-            },   
+            },
         }
     },
 
     Name_Supplier: {
-        type: DataTypes.STRING(50), 
-        allowNull: false, 
+        type: DataTypes.STRING(50),
+        allowNull: false,
         validate: {
             notNull: {
                 msg: 'El nombre es requerido'
             },
-           
+
             len: {
                 args: [5, 50],
                 msg: 'El nombre debe tener de 5 a 50 caracteres.'
@@ -47,12 +47,12 @@ export const supplier = sequelize.define('Suppliers', {
         }
     },
 
-    Name_Business : {
-        type: DataTypes.STRING(50), 
-        allowNull: true, 
+    Name_Business: {
+        type: DataTypes.STRING(50),
+        allowNull: true,
         unique: true,
         validate: {
-            
+
             len: {
                 args: [4, 50],
                 msg: 'El nombre debe tener de 4 a 50 caracteres.'
@@ -61,15 +61,15 @@ export const supplier = sequelize.define('Suppliers', {
     },
 
     Phone: {
-        type: DataTypes.STRING(12), 
+        type: DataTypes.STRING(12),
         allowNull: false,
         unique: true,
-        
+
     },
 
     Email: {
         type: DataTypes.STRING(80),
-        allowNull: false, 
+        allowNull: false,
         unique: true,
         validate: {
             notNull: {
@@ -82,8 +82,8 @@ export const supplier = sequelize.define('Suppliers', {
     },
 
     City: {
-        type: DataTypes.STRING(20), 
-        allowNull: false, 
+        type: DataTypes.STRING(20),
+        allowNull: false,
         validate: {
             notNull: {
                 msg: 'La ciudad es requerido'
@@ -112,7 +112,6 @@ supplier.hasMany(shopping, {
     },
     sourceKey: 'ID_Supplier'
 })
-
 shopping.belongsTo(supplier, {
     foreignKey: {
         name: 'Supplier_ID',

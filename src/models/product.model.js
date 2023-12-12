@@ -3,19 +3,19 @@ import { sequelize } from "../db/dataBase.js";
 import { productDetail } from './productdetail.model.js'
 import { saleDetail } from './saledetail.model.js'
 
-export const product =  sequelize.define('Products', {
+export const product = sequelize.define('Products', {
 
     ID_Product: {
         type: DataTypes.INTEGER,
-        primaryKey: true, 
-        autoIncrement: true 
-    }, 
+        primaryKey: true,
+        autoIncrement: true
+    },
 
     Name_Products: {
-        type: DataTypes.STRING(30), 
-        allowNull: false, 
-        validate:{
-            notNull:{
+        type: DataTypes.STRING(30),
+        allowNull: false,
+        validate: {
+            notNull: {
                 msg: "El nombre del producto es requerido"
             },
             customValidate(value) {
@@ -30,9 +30,9 @@ export const product =  sequelize.define('Products', {
         type: DataTypes.DECIMAL(10, 2),
         allowNull: false,
         validate: {
-            notNull:{
+            notNull: {
                 msg: "El precio del producto es requerido"
-            }, 
+            },
             isInt: true
         },
     },
@@ -68,7 +68,6 @@ product.hasMany(productDetail, {
     },
     sourceKey: 'ID_Product'
 })
-
 productDetail.belongsTo(product, {
     foreignKey: {
         name: 'Product_ID',
@@ -84,7 +83,6 @@ product.hasMany(saleDetail, {
     },
     sourceKey: 'ID_Product'
 })
-
 saleDetail.belongsTo(product, {
     foreignKey: {
         name: 'Product_ID',

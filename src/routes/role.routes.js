@@ -49,5 +49,4 @@ router.delete('/role/:id', authRequired, moduleValidation.hasPermissions(
     moduleValidation.MODULES.SETTINGS
 ), deleteRole);
 
-
 export default router;

@@ -7,7 +7,6 @@ import { shoppingDetail } from '../models/shoppingdetail.model.js';
 import { supplies } from '../models/supplies.model.js';
 import { sequelize } from '../db/dataBase.js';
 
-
 export const mostPurchasedSupplies = async (req, res) => {
     try {
         const mostPurchased = await supplies.findAll({

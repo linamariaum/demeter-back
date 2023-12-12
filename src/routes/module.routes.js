@@ -1,4 +1,5 @@
 import { Router } from "express"
+
 import { getModuleNames, getModuleNamesAndRoleState, removeMultipleModulePermissions } from "../controllers/module.controller.js"
 
 const router = Router()

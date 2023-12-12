@@ -1,4 +1,5 @@
 import { Router } from 'express';
+
 import { getSupplier, getSupplie, createSupplier, disableSupplier, updateSupplier, deleteSupplier, getSupplierByState } from '../controllers/supplier.controller.js';
 
 import { authRequired } from '../middlewares/validateToken.js'

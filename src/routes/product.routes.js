@@ -1,6 +1,8 @@
 import { Router } from "express";
+
 import { getProducts, getAllProduct, getProduct, getProductsByCategory, checkForDuplicates, createProduct, updateProduct, toggleProductStatus, deleteProduct } from '../controllers/product.controller.js';
 import { getDetailProduct, createDetailP, deleteDetailProduct } from '../controllers/product.controller.js'; //Detalles
+
 import { authRequired } from '../middlewares/validateToken.js'
 import ModuleValidationMiddleware from '../middlewares/ModuleValidation.middleware.js'
 
@@ -42,6 +44,7 @@ router.get('/AllProducts', authRequired, moduleValidation.hasPermissions(
     moduleValidation.MODULES.PRODUCT
 ), getAllProduct);
 
+// --------------------- Detalle -------------------------
 
 router.get('/product_detail/:id', authRequired, moduleValidation.hasPermissions(
     moduleValidation.MODULES.PRODUCT

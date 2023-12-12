@@ -8,11 +8,11 @@ export const typeUser = sequelize.define('TypeUsers', {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
-    }, 
+    },
 
-    Name_Type : {
-        type: DataTypes.STRING(15), 
-        allowNull: false, 
+    Name_Type: {
+        type: DataTypes.STRING(15),
+        allowNull: false,
         validate: {
             notNull: {
                 msg: 'El tipo de usuario es requerido'
@@ -35,7 +35,6 @@ typeUser.hasMany(user, {
     },
     sourceKey: 'ID_TypeUser'
 })
-
 user.belongsTo(typeUser, {
     foreignKey: {
         name: 'TypeUser_ID',

@@ -1,4 +1,5 @@
 import { Router } from "express";
+
 import { createSaleDetail, getDetails, createManyDetails, lotUpd, deleteSaleDetail } from "../controllers/saledetail.controller.js";
 
 import { authRequired } from '../middlewares/validateToken.js'
@@ -33,5 +34,4 @@ router.delete('/deleteDetailS/:ID_SaleDetail', authRequired, moduleValidation.ha
     moduleValidation.MODULES.SALES
 ), deleteSaleDetail)
 
-// router.get('/detailsWproduct/:id', authRequired, getDetailsWithProductInfo);
 export default router;

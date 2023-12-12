@@ -4,9 +4,9 @@ import { saleDetail } from './saledetail.model.js'
 
 export const sale = sequelize.define('Sales', {
 
-    ID_Sale:{
-        type: DataTypes.INTEGER, 
-        primaryKey: true, 
+    ID_Sale: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
         autoIncrement: true,
     },
 
@@ -22,10 +22,10 @@ export const sale = sequelize.define('Sales', {
     },
 
     Datetime: {
-        type: DataTypes.DATE, 
+        type: DataTypes.DATE,
         allowNull: false,
         validate: {
-            notNull:{
+            notNull: {
                 msg: "La fecha es requerido"
             }
         }
@@ -36,7 +36,7 @@ export const sale = sequelize.define('Sales', {
         defaultValue: false,
         allowNull: false,
         validate: {
-            notNull:{
+            notNull: {
                 msg: "El estado de venta rapida es requerido"
             }
         }
@@ -46,7 +46,7 @@ export const sale = sequelize.define('Sales', {
         type: DataTypes.DECIMAL(10, 2),
         allowNull: false,
         validate: {
-            notNull:{
+            notNull: {
                 msg: "El descuento es requerido"
             }
         }
@@ -56,30 +56,30 @@ export const sale = sequelize.define('Sales', {
         type: DataTypes.DECIMAL(10, 2),
         allowNull: false,
         validate: {
-            notNull:{
+            notNull: {
                 msg: "El subtotal es requerido"
             }
         }
     },
 
     Total: {
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: false,
         validate: {
-            notNull:{
+            notNull: {
                 msg: "El precio del producto es requerido"
-            }, 
+            },
             isInt: true
         }
     },
 
     Payment: {
         type: DataTypes.STRING(30),
-        allowNull: false, 
+        allowNull: false,
         validate: {
-            notNull:{
+            notNull: {
                 msg: "El metodo de pago es requerido"
-            }, 
+            },
             customValidate(value) {
                 if (!/^[A-Za-z\s()]+$/.test(value)) {
                     throw new Error('La medida del insumo puede contener letras, espacios y paréntesis.');
@@ -109,7 +109,6 @@ sale.hasMany(saleDetail, {
     },
     sourceKey: 'ID_Sale',
 })
-
 saleDetail.belongsTo(sale, {
     foreignKey: {
         name: 'Sale_ID',

@@ -47,16 +47,11 @@ export const supplies = sequelize.define('Supplies', {
     Measure: {
         type: DataTypes.STRING(15),
         allowNull: false,
-        // validate: {
-        //     notNull: {
-        //         msg: "La medida del insumo es requerido"
-        //     },
-        //     customValidate(value) {
-        //         if (!/^[A-ZÑñ][a-zA-ZÑñ\s]*$/.test(value)) {
-        //             throw new Error('Se debe comenzar con mayúscula y puede contener letras, espacios y la letra "ñ".');
-        //         }
-        //     }
-        // },
+        validate: {
+            notNull: {
+                msg: "La medida del insumo es requerido"
+            }
+        },
         customValidate(value) {
             if (!/^[A-Za-zÑñ\s()]+$/.test(value)) {
                 throw new Error('Debe comenzar con mayúscula y puede contener letras, espacios, la letra "ñ" y paréntesis.');
@@ -98,7 +93,6 @@ supplies.hasMany(productDetail, {
     },
     sourceKey: 'ID_Supplies'
 })
-
 productDetail.belongsTo(supplies, {
     foreignKey: {
         name: 'Supplies_ID',
@@ -114,7 +108,6 @@ supplies.hasMany(shoppingDetail, {
     },
     sourceKey: 'ID_Supplies'
 })
-
 shoppingDetail.belongsTo(supplies, {
     foreignKey: {
         name: 'Supplies_ID',
@@ -130,7 +123,6 @@ supplies.hasMany(losses, {
     },
     sourceKey: 'ID_Supplies'
 })
-
 losses.belongsTo(supplies, {
     foreignKey: {
         name: 'Supplies_ID',

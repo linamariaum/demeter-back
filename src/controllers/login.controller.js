@@ -48,7 +48,7 @@ export const changePassword = async (req, res) => {
 
         userFound.Password = newPasswordHash;
         await userFound.save();
-        
+
         const token = await createAccessToken({ ID_User: userFound.ID_User });
         res.cookie('token', token);
 
@@ -59,22 +59,6 @@ export const changePassword = async (req, res) => {
 };
 
 // --------------------------- Login ------------------------------------- //
-
-// export const getCurrentUser = async (req, res) => {
-
-//     const token = req.cookies.token
-//     console.log(token)
-//     const user = jwt.decode(token, TOKEN_SECRET)
-//     console.log("user")
-//     console.log(user)
-
-//     req.params = {
-//         ...req.params,
-//         id: user?.id || user.ID_User
-//     }
-
-//     return getUser(req, res)
-// };
 
 export const getCurrentUser = async (req, res) => {
     try {
@@ -134,7 +118,7 @@ export const logout = (req, res) => {
         expires: new Date(0),
     });
     return res.sendStatus(200);
-}
+};
 
 export const profile = async (req, res) => {
     const UserFound = await user.findByPk(req.user.ID_User)
@@ -146,7 +130,7 @@ export const profile = async (req, res) => {
         username: UserFound.Name_User,
         email: UserFound.Email,
     })
-}
+};
 
 export const verifyToken = async (req, res) => {
     const { token } = req.cookies
@@ -205,7 +189,7 @@ export const getUserCookies = (req, res) => {
     res.json({
         cookies
     })
-}
+};
 
 export const NewPassword = async (req, res) => {
     const { token, Password } = req.body;
@@ -221,7 +205,7 @@ export const NewPassword = async (req, res) => {
             }
         });
 
-        
+
         console.log('Found user:', foundUser);
 
         const passwordHast = await bcrypt.hash(Password, 10)
@@ -239,4 +223,4 @@ export const NewPassword = async (req, res) => {
         console.error('Error:', error);
         return res.status(500).json({ message: error.message, hasError: true });
     }
-}
+};

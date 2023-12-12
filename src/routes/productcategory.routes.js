@@ -1,4 +1,5 @@
 import { Router } from 'express'
+
 import { getCategory_products, getOneCategory_products, checkForDuplicates, createCategory_products, disableCategory_products, updateCategory_products, deleteCategory_products } from '../controllers/productcategory.controller.js'
 
 import { authRequired } from '../middlewares/validateToken.js'

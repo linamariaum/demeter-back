@@ -1,22 +1,22 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../db/dataBase.js";
 
-export const losses =  sequelize.define('Losses', {
+export const losses = sequelize.define('Losses', {
 
     ID_Losses: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        autoIncrement: true 
+        autoIncrement: true
     },
-    
+
     Unit: {
         type: DataTypes.DOUBLE,
-        allowNull: false, 
+        allowNull: false,
         validate: {
-            notNull:{
+            notNull: {
                 msg: "La cantidad del insumo perdido es requerido"
-            }, 
-            isInt: true, 
+            },
+            isInt: true,
             min: 0,
             max: 99999999
         },
@@ -24,11 +24,11 @@ export const losses =  sequelize.define('Losses', {
 
     Measure: {
         type: DataTypes.STRING(15),
-        allowNull: false, 
+        allowNull: false,
         validate: {
-            notNull:{
+            notNull: {
                 msg: "La medida del insumo es requerido"
-            }, 
+            },
             customValidate(value) {
                 if (!/^[A-Za-zÑñ\s()]+$/.test(value)) {
                     throw new Error('Debe comenzar con mayúscula y puede contener letras, espacios, la letra "ñ" y paréntesis.');
@@ -38,12 +38,12 @@ export const losses =  sequelize.define('Losses', {
     },
 
     Reason: {
-        type: DataTypes.STRING(250), 
-        allowNull: false, 
-        validate:{
-            notNull:{
+        type: DataTypes.STRING(250),
+        allowNull: false,
+        validate: {
+            notNull: {
                 msg: "El motivo es requerido"
-            }, 
+            },
             customValidate(value) {
                 if (!/^[A-ZÁÉÍÓÚÑa-záéíóúñ\s,.]*$/.test(value)) { // Esta es la validación buena
                     throw new Error('Se permiten letras mayúscula, minúsculas, espacios, tildes, comas y puntos.');

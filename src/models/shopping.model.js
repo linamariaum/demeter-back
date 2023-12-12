@@ -57,7 +57,6 @@ shopping.hasMany(shoppingDetail, {
     },
     sourceKey: 'ID_Shopping'
 })
-
 shoppingDetail.belongsTo(shopping, {
     foreignKey: {
         name: 'Shopping_ID',

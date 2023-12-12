@@ -40,5 +40,4 @@ router.get("/supplies/:id", authRequired, moduleValidation.hasPermissions(
     moduleValidation.MODULES.SUPPLIES
 ), getSupplie);
 
-
 export default router;

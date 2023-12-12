@@ -8,7 +8,7 @@ export const getCategory_products = async (req, res) => {
     } catch (error) {
         return res.status(500).json({ message: error.message });
     }
-}
+};
 
 export const getOneCategory_products = async (req, res) => {
     try {
@@ -24,7 +24,7 @@ export const getOneCategory_products = async (req, res) => {
     } catch (error) {
         return res.status(500).json({ message: error.message });
     }
-}
+};
 
 export const checkForDuplicates = async (req, res, next) => {
     try {
@@ -68,7 +68,7 @@ export const createCategory_products = async (req, res) => {
     } catch (error) {
         return res.status(500).json({ message: error.message });
     }
-}
+};
 
 
 export const disableCategory_products = async (req, res) => {
@@ -91,7 +91,7 @@ export const disableCategory_products = async (req, res) => {
     } catch (error) {
         return res.status(500).json({ message: error.message });
     }
-}
+};
 
 export const updateCategory_products = async (req, res) => {
 
@@ -116,7 +116,7 @@ export const updateCategory_products = async (req, res) => {
     } catch (error) {
         return res.status(500).json({ message: error.message });
     }
-}
+};
 
 export const deleteCategory_products = async (req, res) => {
     try {
@@ -132,4 +132,4 @@ export const deleteCategory_products = async (req, res) => {
     } catch (error) {
         return res.status(500).json({ message: error.message });
     }
-}
+};

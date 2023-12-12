@@ -24,6 +24,8 @@ export const getModuleNamesAndRoleState = async (req, res) => {
       roleState: modulesPermission.some(mp => +mp.Role_ID === +id && +mp.Module_ID === +m.ID_Module)
     }))
 
+    console.log("data", data)
+
     res.json(data);
   } catch (error) {
     return res.status(500).json({ message: error.message });

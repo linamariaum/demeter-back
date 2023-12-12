@@ -18,8 +18,8 @@ router.get('/profile', authRequired, profile)
 router.get('/verifyToken', verifyToken)
 router.post('/resetPassword', forgotPassword);
 router.post('/newPassword', NewPassword);
-router.get('/getUserCookies', getUserCookies);
-router.get('/getCurrentUser', getCurrentUser);
+router.get('/getUserCookies', authRequired, getUserCookies);
+router.get('/getCurrentUser', authRequired, getCurrentUser);
 
 
 export default router;

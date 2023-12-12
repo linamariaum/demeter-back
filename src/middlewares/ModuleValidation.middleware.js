@@ -20,7 +20,7 @@ export default class {
 
     this.MODULES = {
       DASHBOARD: "dashboard",
-      SETTINGS: "settings",
+      SETTINGS: "setting",
       USER: "user",
       CATEGORY_SUPPLIES: "categorySupplies",
       SUPPLIES: "supplies",

@@ -3,6 +3,7 @@ import { shopping } from '../models/shopping.model.js';
 import bcrypt from 'bcryptjs';
 import { createAccessToken } from '../libs/jwt.js';
 import { Op } from 'sequelize';
+import { supplier } from '../models/supplier.model.js';
 
 export const getUsers = async (req, res) => {
     try {
@@ -170,4 +171,43 @@ export const deleteUser = async (req, res) => {
     } catch (error) {
         return res.status(500).json({ message: error.message });
     }
+};
+
+export const existUserByEmailOrId = async (req, res) => {
+    let existUser = false
+    let hasError = false
+    let existingUser;
+
+    try {
+        const { document, email, userType } = req.params;
+
+        let model = user
+
+        switch (userType) {
+            case "supplier":
+                model = supplier
+                break
+            default: break
+        }
+
+        existingUser = await model.findOne({
+            where: {
+                [Op.or]: [{ Document: document }, { Email: email }],
+            },
+        });
+
+        if (existingUser) {
+            existUser = true
+        }
+
+
+    } catch (error) {
+        hasError = true
+    }
+
+    res.json({
+        existUser,
+        hasError,
+        existingUser
+    })
 };

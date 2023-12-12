@@ -81,7 +81,7 @@ export const toggleProductStatus = async (req, res) => {
         });
 
         const statusRecipe = await productDetail.findAll({
-            where: { Product_ID: id},
+            where: { Product_ID: id },
         });
 
         if (!statusProduct) {
@@ -124,59 +124,67 @@ export const deleteProduct = async (req, res) => {
 
 // Deatlles del producto
 
-export const getDetailProduct = async (req, res) => {
+export const getDetailsPByProduct = async (req, res) => {
     const { id } = req.params
 
     try {
-        const detail = await productDetail.findAll({
+        const getProduct = await product.findOne({
+            where: { ID_Product: id }
+        })
+        const getDetailsPByProduct = await productDetail.findOne({
             where: { Product_ID: id }
         })
 
-        res.json(detail);
+        if (!getDetailsPByProduct) return res.status(404).json({ message: 'No exite el producto.' })
+
+        res.json(getProduct, getDetailsPByProduct);
+    } catch (error) {
+        return res.status(500).json({ message: error.message });
+    }
+};
+
+export const getDetailProduct = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const productDetails = await productDetail.findAll({
+            where: { Product_ID: id },
+            include: [
+                {
+                    model: product,
+                    attributes: ['ID_Product', 'Name_Products',],
+                },
+                {
+                    model: supplies,
+                    attributes: ['ID_Supplies', 'Name_Supplies', 'Measure'], // Agrega los campos necesarios
+                },
+            ],
+        });
+
+        if (!productDetails) {
+            return res.status(404).json({ message: 'No existen detalles para el producto.' });
+        }
+
+        res.json(productDetails);
     } catch (error) {
         return res.status(500).json({ message: error.message });
     }
 };
 
 export const createDetailP = async (req, res) => {
-    const { id } = req.params;
 
     try {
-        const { Supplies_ID, Measure, Lot_ProductDetail } = req.body
+        const { Supplies_ID, Lot_ProductDetail, id } = req.body
 
-        // Obtener la medida del insumo correspondiente
-        const supplie = await supplies.findById(Supplies_ID);
+        const supplie = await supplies.findByPk(Supplies_ID);
         if (!supplie) {
             return res.status(404).json({ message: 'El insumo no existe' });
-        }
-
-        let Lot = Lot_ProductDetail;
-
-        //Se hacen las conversiones
-        if (supplie.Measure === 'Kilogramos (kg)' && Measure === 'Gramos (g)') {
-            Lot = Lot_ProductDetail * 1000;
-        }
-        else if (supplie.Measure === 'Litros (L)' && Measure === 'Mililitros (ml)') {
-            Lot = Lot_ProductDetail * 1000;
-        }
-        else if (supplie.Measure === 'Gramos (g)' && Measure === 'Gramos (g)') {
-            Lot = Lot_ProductDetail;
-        }
-        else if (supplie.Measure === 'Mililitros (ml)' && Measure === 'Mililitros (ml)') {
-            Lot = Lot_ProductDetail;
-        }
-        else if (supplie.Measure === 'Unidad(es)' && Measure === 'Unidad(es)') {
-            Lot = Lot_ProductDetail;
-        }
-        else {
-            return res.status(404).json({ message: 'Una de las medidas de insumo o la receta esta erronea.' });
         }
 
         const createDetail = await productDetail.create({
             Product_ID: id,
             Supplies_ID: Supplies_ID,
-            Measure,
-            Lot_ProductDetail,
+            Lot_ProductDetail: Lot_ProductDetail,
             State: true
         })
         res.json(createDetail);

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getProducts, getProductsByCategory, checkForDuplicates, createProduct, updateProduct, toggleProductStatus, deleteProduct } from '../controllers/product.controller.js';
+import { getProducts, getAllProduct, getProduct, getProductsByCategory, checkForDuplicates, createProduct, updateProduct, toggleProductStatus, deleteProduct } from '../controllers/product.controller.js';
 import { getDetailProduct, createDetailP, deleteDetailProduct } from '../controllers/product.controller.js'; //Detalles
 import { authRequired } from '../middlewares/validateToken.js'
 import ModuleValidationMiddleware from '../middlewares/ModuleValidation.middleware.js'
@@ -20,9 +20,9 @@ const moduleValidation = new ModuleValidationMiddleware(
 router.get('/product', authRequired, moduleValidation.hasPermissions(
     moduleValidation.MODULES.PRODUCT
 ), getProducts);
-router.post('/add_product', authRequired, checkForDuplicates, moduleValidation.hasPermissions(
+router.post('/add_product', authRequired, moduleValidation.hasPermissions(
     moduleValidation.MODULES.PRODUCT
-), createProduct);
+), checkForDuplicates, createProduct);
 router.put('/update_product/:id', authRequired, moduleValidation.hasPermissions(
     moduleValidation.MODULES.PRODUCT
 ), updateProduct);
@@ -35,12 +35,22 @@ router.delete('/product/:id', authRequired, moduleValidation.hasPermissions(
 router.get('/product/:id', authRequired, moduleValidation.hasPermissions(
     moduleValidation.MODULES.PRODUCT
 ), getProductsByCategory);
-// router.get('/Singleproduct/:id', authRequired, getProduct);
-// router.get('/AllProducts', authRequired, getAllProduct);
+router.get('/Singleproduct/:id', authRequired, moduleValidation.hasPermissions(
+    moduleValidation.MODULES.PRODUCT
+), getProduct);
+router.get('/AllProducts', authRequired, moduleValidation.hasPermissions(
+    moduleValidation.MODULES.PRODUCT
+), getAllProduct);
 
-//Detalles
-router.get('/product_detail/:id', authRequired, getDetailProduct)
-router.post('/add_details/:id', authRequired, createDetailP)
-router.delete('/details/:id', authRequired, deleteDetailProduct)
+
+router.get('/product_detail/:id', authRequired, moduleValidation.hasPermissions(
+    moduleValidation.MODULES.PRODUCT
+), getDetailProduct)
+router.post('/add_details/:id', authRequired, moduleValidation.hasPermissions(
+    moduleValidation.MODULES.PRODUCT
+), createDetailP)
+router.delete('/details/:id', authRequired, moduleValidation.hasPermissions(
+    moduleValidation.MODULES.PRODUCT
+), deleteDetailProduct)
 
 export default router;

@@ -11,13 +11,21 @@ export const supplier = sequelize.define('Suppliers', {
     },
 
     Type_Document: {
-        type: DataTypes.STRING(15),
+        type: DataTypes.STRING(5),
         allowNull: false,
         validate: {
             notNull: {
                 msg: "El tipo de documento es requerido"
             },
-
+            customValidate(value) {
+                if (!/^[A-Za-zÁÉÍÓÚÑáéíóúñ\s]*$/.test(value)) {
+                    throw new Error('Se permiten letras mayúsculas, minúsculas, espacios, tildes.');
+                }
+            },
+            len: {
+                args: [1, 5],
+                msg: 'El tipo de documento deb tener de 1 a 5 caracteres.'
+            }
         }
     },
 
@@ -29,6 +37,10 @@ export const supplier = sequelize.define('Suppliers', {
             notNull: {
                 msg: 'El documento es requerido'
             },
+            len: {
+                args: [3, 10],
+                msg: 'El documento tener de 3 a 10 caracteres.'
+            }
         }
     },
 
@@ -39,10 +51,14 @@ export const supplier = sequelize.define('Suppliers', {
             notNull: {
                 msg: 'El nombre es requerido'
             },
-
+            customValidate(value) {
+                if (!/^[A-Za-zÁÉÍÓÚÑáéíóúñ\s]*$/.test(value)) {
+                    throw new Error('Se permiten letras mayúsculas, minúsculas, espacios, tildes.');
+                }
+            },
             len: {
                 args: [5, 50],
-                msg: 'El nombre debe tener de 5 a 50 caracteres.'
+                msg: 'El nombre del proveedor debe tener de 5 a 50 caracteres.'
             }
         }
     },
@@ -52,9 +68,14 @@ export const supplier = sequelize.define('Suppliers', {
         allowNull: true,
         unique: true,
         validate: {
+            customValidate(value) {
+                if (!/^[A-Za-zÁÉÍÓÚÑáéíóúñ\s,.-]*$/.test(value)) {
+                    throw new Error('Se permiten letras mayúsculas, minúsculas, espacios, tildes, coma, punto y guion.');
+                }
+            },
             len: {
                 args: [4, 50],
-                msg: 'El nombre debe tener de 4 a 50 caracteres.'
+                msg: 'El nombre de la empresa debe tener de 4 a 50 caracteres.'
             }
         }
     },
@@ -62,8 +83,7 @@ export const supplier = sequelize.define('Suppliers', {
     Phone: {
         type: DataTypes.STRING(12),
         allowNull: false,
-        unique: true,
-
+        unique: true
     },
 
     Email: {
@@ -87,6 +107,15 @@ export const supplier = sequelize.define('Suppliers', {
             notNull: {
                 msg: 'La ciudad es requerido'
             },
+            customValidate(value) {
+                if (!/^[A-Za-zÁÉÍÓÚÑáéíóúñ\s]*$/.test(value)) {
+                    throw new Error('Se permiten letras mayúsculas, minúsculas, espacios, tildes.');
+                }
+            },
+            len: {
+                args: [3, 20],
+                msg: 'La ciudad del proveedor debe tener de 3 a 20 caracteres.'
+            }
         }
     },
 

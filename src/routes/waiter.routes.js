@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import { getWaiters, getWaiterByState, createWaiter, duplicateWaiter, getWaiter, updateWaiter } from '../controllers/waiter.controller.js'; // Meseros
+import { getWaiters, getWaiterBySale, createWaiter, duplicateWaiter, updateWaiter } from '../controllers/waiter.controller.js'; // Meseros
 
 import { authRequired } from '../middlewares/validateToken.js'
 import ModuleValidationMiddleware from '../middlewares/ModuleValidation.middleware.js'
@@ -22,10 +22,7 @@ router.get('/waiter', authRequired, moduleValidation.hasPermissions(
 ), getWaiters);
 router.get('/waiter_status', authRequired, moduleValidation.hasPermissions(
     moduleValidation.MODULES.WAITER
-), getWaiterByState);
-router.get('/waiter/:id', authRequired, moduleValidation.hasPermissions(
-    moduleValidation.MODULES.WAITER
-), getWaiter);
+), getWaiterBySale);
 router.post('/add_waiter', authRequired, duplicateWaiter, moduleValidation.hasPermissions(
     moduleValidation.MODULES.WAITER
 ), createWaiter);

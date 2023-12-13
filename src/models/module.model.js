@@ -11,11 +11,20 @@ export const module = sequelize.define('Modules', {
     },
 
     Name_Module: {
-        type: DataTypes.STRING(30),
+        type: DataTypes.STRING(20),
         allowNull: false,
         validate: {
             notNull: {
                 msg: "El nombre es requerido"
+            },
+            customValidate(value) {
+                if (!/^[A-Za-zÁÉÍÓÚÑáéíóúñ\s]*$/.test(value)) {
+                    throw new Error('Se permiten letras mayúsculas, minúsculas, espacios, tildes.');
+                }
+            },
+            len: {
+                args: [3, 20],
+                msg: 'El nombre del modulo debe tener de 3 a 20 caracteres.'
             }
         }
     }

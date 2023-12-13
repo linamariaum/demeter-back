@@ -16,6 +16,15 @@ export const typeUser = sequelize.define('TypeUsers', {
         validate: {
             notNull: {
                 msg: 'El tipo de usuario es requerido'
+            },
+            customValidate(value) {
+                if (!/^[A-Za-zÁÉÍÓÚÑáéíóúñ\s]*$/.test(value)) {
+                    throw new Error('Se permiten letras mayúsculas, minúsculas, espacios, tildes.');
+                }
+            },
+            len: {
+                args: [3, 15],
+                msg: 'El nombre del tipo de usuario tener de 3 a 15 caracteres.'
             }
         }
     }

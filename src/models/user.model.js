@@ -12,11 +12,20 @@ export const user = sequelize.define('Users', {
     },
 
     Type_Document: {
-        type: DataTypes.STRING(15),
+        type: DataTypes.STRING(5),
         allowNull: false,
         validate: {
             notNull: {
                 msg: "El tipo de documento es requerido"
+            },
+            customValidate(value) {
+                if (!/^[A-Za-zÁÉÍÓÚÑáéíóúñ\s]*$/.test(value)) {
+                    throw new Error('Se permiten letras mayúsculas, minúsculas, espacios, tildes.');
+                }
+            },
+            len: {
+                args: [1, 5],
+                msg: 'El tipo de documento deb tener de 1 a 5 caracteres.'
             }
         }
     },
@@ -28,6 +37,10 @@ export const user = sequelize.define('Users', {
         validate: {
             notNull: {
                 msg: 'El documento es requerido'
+            },
+            len: {
+                args: [3, 15],
+                msg: 'El documento debe tener de 3 a 15 caracteres.'
             }
         }
     },
@@ -38,6 +51,15 @@ export const user = sequelize.define('Users', {
         validate: {
             notNull: {
                 msg: 'El nombre es requerido'
+            },
+            customValidate(value) {
+                if (!/^[A-Za-zÁÉÍÓÚÑáéíóúñ\s]*$/.test(value)) {
+                    throw new Error('Se permiten letras mayúsculas, minúsculas, espacios, tildes.');
+                }
+            },
+            len: {
+                args: [3, 30],
+                msg: 'El nombre del usuario tener de 3 a 30 caracteres.'
             }
         }
     },
@@ -48,6 +70,15 @@ export const user = sequelize.define('Users', {
         validate: {
             notNull: {
                 msg: 'El apellido es requerido'
+            },
+            customValidate(value) {
+                if (!/^[A-Za-zÁÉÍÓÚÑáéíóúñ\s]*$/.test(value)) {
+                    throw new Error('Se permiten letras mayúsculas, minúsculas, espacios, tildes.');
+                }
+            },
+            len: {
+                args: [3, 30],
+                msg: 'El apellido del usuario tener de 3 a 30 caracteres.'
             }
         }
     },
@@ -59,6 +90,10 @@ export const user = sequelize.define('Users', {
         validate: {
             isEmail: {
                 msg: 'El correo electrónico debe ser válido y contener el símbolo "@"'
+            },
+            len: {
+                args: [10, 80],
+                msg: 'El correo del usuario tener de 10 a 80 caracteres.'
             }
         }
     },
@@ -71,7 +106,18 @@ export const user = sequelize.define('Users', {
 
     Restaurant: {
         type: DataTypes.STRING(15),
-        allowNull: true
+        allowNull: true,
+        validate: {
+            customValidate(value) {
+                if (!/^[A-Za-zÁÉÍÓÚÑáéíóúñ\s,.-]*$/.test(value)) {
+                    throw new Error('Se permiten letras mayúsculas, minúsculas, espacios, tildes, coma, punto y guion.');
+                }
+            },
+            len: {
+                args: [3, 15],
+                msg: 'El restaurante del mesero tener de 3 a 15 caracteres.'
+            }
+        }
     },
 
     State: {

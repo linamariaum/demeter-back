@@ -182,7 +182,6 @@ export const getDetailProduct = async (req, res) => {
 };
 
 export const createDetailP = async (req, res) => {
-    
 
     try {
         const { Supplies_ID,  Lot_ProductDetail, id } = req.body
@@ -215,6 +214,7 @@ export const deleteDetailProduct = async (req, res) => {
         return res.status(500).json({ message: error.message });
     }
 };
+
 export const getDetailProduct2 = async (req, res) => {
     const { id } = req.params;
 

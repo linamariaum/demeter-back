@@ -1,4 +1,5 @@
 import { user } from '../models/user.model.js';
+import { sale } from '../models/sale.model.js';
 import { Op } from 'sequelize';
 
 export const getWaiters = async (req, res) => {
@@ -14,40 +15,36 @@ export const getWaiters = async (req, res) => {
     }
 };
 
-export const getWaiterByState = async (req, res) => {
+export const getWaiterBySale = async (req, res) => {
 
     try {
-        const WaiterStatus = await user.findAll({
+        const { id } = req.params
+
+        const WaiterSale = await sale.findAll({
             where: {
-                State: 1,
-                TypeUser_ID: 2
+                User_ID: id
             }
         });
 
-        res.json(WaiterStatus);
-    } catch (error) {
-        return res.status(500).json({ message: error.message });
-    }
-};
+        if (!WaiterSale) return res.status(404).json({ message: 'El mesero no existe' })
 
-export const getWaiter = async (req, res) => {
-    const { id } = req.params
-
-    try {
-        const getUser = await user.findOne({ where: { ID_User: id } });
-
-        if (!getUser) return res.status(404).json({ message: 'El usuario no existe' })
-
-        res.json(getUser);
+        res.json(WaiterSale);
     } catch (error) {
         return res.status(500).json({ message: error.message });
     }
 };
 
 export const createWaiter = async (req, res) => {
-    const { Type_Document, Document, Name_User, LastName_User, Restaurant } = req.body;
 
     try {
+
+        const { Type_Document, Document, Name_User, LastName_User, Restaurant } = req.body;
+
+        const typesDocument = ['CC', 'CE', 'PB'];
+
+        if (!typesDocument.includes(Type_Document)) {
+            return res.status(400).json({ mensaje: 'Tipo de documento no valido (CC, CE ó PB).' });
+        }
         const newUser = await user.create({
             Type_Document,
             Document,
@@ -98,6 +95,12 @@ export const updateWaiter = async (req, res) => {
 
     try {
         const { Type_Document, Document, Name_User, LastName_User, Restaurant } = req.body;
+
+        const typesDocument = ['CC', 'CE', 'PB'];
+
+        if (!typesDocument.includes(Type_Document)) {
+            return res.status(400).json({ mensaje: 'Tipo de documento no valido (CC, CE ó PB)' });
+        }
 
         const updateWaiter = await user.findByPk(id)
 

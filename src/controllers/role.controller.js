@@ -13,37 +13,6 @@ export const getRoles = async (req, res) => {
     }
 };
 
-export const getRoleByState = async (req, res) => {
-
-    try {
-        const RoleStatus = await role.findAll({
-            where: {
-                State: 1
-            }
-        });
-
-        res.json(RoleStatus);
-    } catch (error) {
-        return res.status(500).json({ message: error.message });
-    }
-};
-
-export const getRole = async (req, res) => {
-    const { id } = req.params
-    
-    try {
-        const getRole = await role.findOne({
-            where: { ID_Role: id }
-        })
-
-        if (!getRole) return res.status(404).json({ message: 'El rol no existe.' })
-
-        res.json(getRole);
-    } catch (error) {
-        return res.status(500).json({ message: error.message });
-    }
-};
-
 export const checkForDuplicates = async (req, res, next) => {
     try {
         const { Name_Role } = req.body;
@@ -68,6 +37,10 @@ export const checkForDuplicates = async (req, res, next) => {
 
 export const createRoles = async (req, res) => {
     const { Name_Role } = req.body;
+
+    if (Name_Role.toLowerCase().includes('admin')) {
+        return res.status(400).json({ message: 'No se permite crear roles con el nombre de administrador.' });
+    }
 
     try {
         const newRole = await role.create({
@@ -129,6 +102,19 @@ export const toggleRoleStatus = async (req, res) => {
                 message: "No se puede actualizar el estado del rol de Administrador.",
             });
         };
+
+        const existRoleInUsers = await user.findOne({
+            where: {
+                Role_ID: id
+            }
+        })
+
+        if (existRoleInUsers) {
+            return res.status(403).json({
+                message: "El rol no puede ser deshabilitado porque esta asociado a un usuario.",
+                useDelete: false
+            })
+        }
 
         statusRole.State = !statusRole.State;
 

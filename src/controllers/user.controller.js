@@ -18,22 +18,6 @@ export const getUsers = async (req, res) => {
     }
 };
 
-export const getUserByState = async (req, res) => {
-
-    try {
-        const UserStatus = await user.findAll({
-            where: {
-                State: 1,
-                TypeUser_ID: 1
-            }
-        });
-
-        res.json(UserStatus);
-    } catch (error) {
-        return res.status(500).json({ message: error.message });
-    }
-};
-
 export const getUser = async (req, res) => {
     const { id } = req.params
 
@@ -71,9 +55,15 @@ export const checkForDuplicates = async (req, res, next) => {
 };
 
 export const createUser = async (req, res) => {
-    const { Type_Document, Document, Name_User, LastName_User, Password, Email, Role_ID } = req.body;
-
     try {
+
+        const typesDocument = ['CC', 'CE', 'PB'];
+        const { Type_Document, Document, Name_User, LastName_User, Password, Email, Role_ID } = req.body;
+
+        if (!typesDocument.includes(Type_Document)) {
+            return res.status(400).json({ mensaje: 'Tipo de documento no valido (CC, CE ó PB).' });
+        }
+
         const passwordHast = await bcrypt.hash(Password, 10)
         const newUser = await user.create({
             Type_Document,
@@ -102,10 +92,17 @@ export const createUser = async (req, res) => {
 };
 
 export const updateUser = async (req, res) => {
-    const { id } = req.params
 
     try {
+        const { id } = req.params
+
         const { Type_Document, Document, LastName_User, Name_User, Email, Role_ID } = req.body
+        
+        const typesDocument = ['CC', 'CE', 'PB'];
+        
+        if (!typesDocument.includes(Type_Document)) {
+            return res.status(400).json({ mensaje: 'Tipo de documento no valido (CC, CE ó PB).' });
+        }
 
         const updateUser = await user.findByPk(id)
 

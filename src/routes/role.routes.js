@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import { getRoles, getRole, getRoleByState, checkForDuplicates, datosType, createRoles, updateRole, toggleRoleStatus, deleteRole, addModuleToRole, addMultipleModuleAndRole, addMultipleModuleAndRoleAndDeleteIfExists, } from '../controllers/role.controller.js';
+import { getRoles, checkForDuplicates, datosType, createRoles, updateRole, toggleRoleStatus, deleteRole, addModuleToRole, addMultipleModuleAndRole, addMultipleModuleAndRoleAndDeleteIfExists, } from '../controllers/role.controller.js';
 
 import { authRequired } from '../middlewares/validateToken.js'
 import ModuleValidationMiddleware from '../middlewares/ModuleValidation.middleware.js'
@@ -30,12 +30,6 @@ router.post('/role/addMultipleModuleAndRole/:roleId', authRequired, moduleValida
 router.post('/role/addMultipleModuleAndRoleAndDeleteIfExists/:roleId', authRequired, moduleValidation.hasPermissions(
     moduleValidation.MODULES.SETTINGS
 ), addMultipleModuleAndRoleAndDeleteIfExists);
-router.get('/role_status', authRequired, moduleValidation.hasPermissions(
-    moduleValidation.MODULES.SETTINGS
-), getRoleByState);
-router.get('/role/:id', authRequired, moduleValidation.hasPermissions(
-    moduleValidation.MODULES.SETTINGS
-), getRole);
 router.post('/add_role', authRequired, checkForDuplicates, moduleValidation.hasPermissions(
     moduleValidation.MODULES.SETTINGS
 ), createRoles);

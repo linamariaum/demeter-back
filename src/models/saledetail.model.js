@@ -10,7 +10,7 @@ export const saleDetail = sequelize.define('SaleDetails', {
     },
 
     Lot: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.DOUBLE,
         allowNull: false,
         validate: {
             notNull: {

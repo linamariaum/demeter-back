@@ -24,13 +24,14 @@ export const getOneSale = async (req, res) => {
 
 export const createSale = async (req, res) => {
 
-    const { Total, SubTotal } = req.body
+    const { Total, SubTotal, User_ID } = req.body
 
     try {
         const newSale = await sale.create({
 
             Total: Total,
-            SubTotal: SubTotal
+            SubTotal: SubTotal,
+            User_ID
 
         })
 
@@ -144,33 +145,6 @@ export const getSalesByTimeRange = async (req, res) => {
         });
 
         res.json(sales);
-    } catch (error) {
-        return res.status(500).json({ message: error.message });
-    }
-};
-
-
-export const getSalesByDate = async (req, res) => {
-    try {
-        const salesByDate = await sale.findAll({
-            attributes: [
-                [sequelize.fn('DATE', sequelize.col('createdAt')), 'saleDate'], // Extraer solo la parte de la fecha
-                [sequelize.fn('COUNT', sequelize.col('*')), 'totalSales'], // Contar el número de ventas
-                [sequelize.fn('SUM', sequelize.col('Total')), 'totalAmount'], // Sumar el monto total de ventas
-            ],
-            where: {
-                createdAt: {
-                    [Op.gte]: new Date(new Date() - 30 * 24 * 60 * 60 * 1000), // Filtrar ventas de los últimos 30 días
-                },
-                Payment: {
-                    [Op.ne]: 'Vacio', // Excluir ventas con Payment igual a 'Vacio'
-                },
-            },
-            group: [sequelize.fn('DATE', sequelize.col('createdAt'))],
-            raw: true, // Obtener resultados sin formato de modelo Sequelize
-        });
-
-        res.json(salesByDate);
     } catch (error) {
         return res.status(500).json({ message: error.message });
     }

@@ -119,21 +119,12 @@ VALUES
 ("categorySupplies"),
 ("waiter"),
 ("shopping"),
-("sales");
-("supplies");
-("supplier");
+("sales"),
+("supplies"),
+("supplier"),
 ("categoryProduct");
-
-
-INSERT INTO typeusers(Name_Type)
-VALUES
-("Empleados"),
-("Meseros");
-
 
 INSERT INTO `roles` (`ID_Role`, `Name_Role`, `State`) VALUES (NULL, 'Administrador', '1');
 
-
-INSERT INTO `modulepermissions` (`ID_ModulePermission`, `Role_ID`, `Module_ID`) VALUES (NULL, '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11'), (NULL, '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1');
-
+INSERT INTO `modulepermissions` (`Role_ID`, `Module_ID`) VALUES (1, '1'), (1, '2'), (1, '3'), (1, '4'), (1, '5'), (1, '6'), (1, '7'), (1, '8'), (1, '9'), (1, '10'), (1, '11')
 */

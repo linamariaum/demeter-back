@@ -4,9 +4,9 @@ import { saleDetail } from './saledetail.model.js'
 
 export const sale = sequelize.define('Sales', {
 
-    ID_Sale: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
+    ID_Sale:{
+        type: DataTypes.INTEGER, 
+        primaryKey: true, 
         autoIncrement: true,
     },
 
@@ -21,22 +21,12 @@ export const sale = sequelize.define('Sales', {
         }
     },
 
-    Datetime: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        validate: {
-            notNull: {
-                msg: "La fecha es requerido"
-            }
-        }
-    },
-
     QuickSale: {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
         allowNull: false,
         validate: {
-            notNull: {
+            notNull:{
                 msg: "El estado de venta rapida es requerido"
             }
         }
@@ -45,8 +35,9 @@ export const sale = sequelize.define('Sales', {
     Discount: {
         type: DataTypes.DECIMAL(10, 2),
         allowNull: false,
+        defaultValue: 0.0,
         validate: {
-            notNull: {
+            notNull:{
                 msg: "El descuento es requerido"
             }
         }
@@ -55,31 +46,30 @@ export const sale = sequelize.define('Sales', {
     SubTotal: {
         type: DataTypes.DECIMAL(10, 2),
         allowNull: false,
+        defaultValue: 0,
         validate: {
-            notNull: {
+            notNull:{
                 msg: "El subtotal es requerido"
             }
         }
     },
 
     Total: {
-        type: DataTypes.DECIMAL(10, 2),
+        type: DataTypes.DECIMAL(10,2),
         allowNull: false,
+        defaultValue: 0,
         validate: {
-            notNull: {
+            notNull:{
                 msg: "El precio del producto es requerido"
-            },
+            }, 
             isInt: true
         }
     },
 
     Payment: {
         type: DataTypes.STRING(30),
-        allowNull: false,
+        allowNull: true, 
         validate: {
-            notNull: {
-                msg: "El metodo de pago es requerido"
-            },
             customValidate(value) {
                 if (!/^[A-Za-z\s()]+$/.test(value)) {
                     throw new Error('La medida del insumo puede contener letras, espacios y paréntesis.');
@@ -99,7 +89,7 @@ export const sale = sequelize.define('Sales', {
         }
     }
 }, {
-    timestamps: false
+    timestamps: true
 });
 
 sale.hasMany(saleDetail, {

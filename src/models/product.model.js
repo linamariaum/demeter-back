@@ -39,12 +39,7 @@ export const product = sequelize.define('Products', {
 
     Image: {
         type: DataTypes.BLOB,
-        allowNull: false,
-        validate: {
-            notNull: {
-                msg: 'El estado es requerido'
-            }
-        }
+        allowNull: true
     },
 
     State: {

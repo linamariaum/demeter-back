@@ -1,21 +1,6 @@
 import { Router } from 'express';
 
-import {
-    mostPurchasedSupplies,
-    mostSoldProducts,
-    totalProfitAndExpenses,
-    organizeByDay,
-    organizeByWeek,
-    organizeByMonth,
-    totalProfitAndExpensesByPaymentMethod,
-    totalUnitsPurchasedBySupply,
-    totalUnitsSoldByProduct,
-    averageUnitsPerPurchase,
-    averageUnitsPerSale,
-    netIncomeByProduct,
-    netIncomeBySupply
-} from '../controllers/dashboard.controller.js';
-
+import { getSalesByDate, getShoppingByDate, getSalesByUser, countAllDetailsByProduct, getMostExpensiveSupply } from '../controllers/dashboard.controller.js'
 import { authRequired } from '../middlewares/validateToken.js'
 import ModuleValidationMiddleware from '../middlewares/ModuleValidation.middleware.js'
 
@@ -32,44 +17,20 @@ const moduleValidation = new ModuleValidationMiddleware(
     }
 )
 
-router.get("/dashboard/most-purchased-supplies", authRequired, moduleValidation.hasPermissions(
+router.get('/getSaleByTimepc', authRequired, moduleValidation.hasPermissions(
     moduleValidation.MODULES.DASHBOARD
-), mostPurchasedSupplies);
-router.get("/dashboard/most-sold-products", authRequired, moduleValidation.hasPermissions(
+), getSalesByDate);
+router.get('/shoppingByDate', authRequired, moduleValidation.hasPermissions(
     moduleValidation.MODULES.DASHBOARD
-), mostSoldProducts);
-router.get("/dashboard/total-profit-expenses", authRequired, moduleValidation.hasPermissions(
+), getShoppingByDate);
+router.get('/getSaleByuserpc', authRequired, moduleValidation.hasPermissions(
     moduleValidation.MODULES.DASHBOARD
-), totalProfitAndExpenses);
-router.get("/dashboard/organize-by-day", authRequired, moduleValidation.hasPermissions(
+), getSalesByUser);
+router.get('/detailsBP', authRequired, moduleValidation.hasPermissions(
     moduleValidation.MODULES.DASHBOARD
-), organizeByDay);
-router.get("/dashboard/organize-by-week", authRequired, moduleValidation.hasPermissions(
+), countAllDetailsByProduct);
+router.get('/shoppingdetailExp', authRequired, moduleValidation.hasPermissions(
     moduleValidation.MODULES.DASHBOARD
-), organizeByWeek);
-router.get("/dashboard/organize-by-month", authRequired, moduleValidation.hasPermissions(
-    moduleValidation.MODULES.DASHBOARD
-), organizeByMonth);
-router.get("/dashboard/profit-expenses-payment-method", authRequired, moduleValidation.hasPermissions(
-    moduleValidation.MODULES.DASHBOARD
-), totalProfitAndExpensesByPaymentMethod);
-router.get("/dashboard/total-units-purchased-by-supply", authRequired, moduleValidation.hasPermissions(
-    moduleValidation.MODULES.DASHBOARD
-), totalUnitsPurchasedBySupply);
-router.get("/dashboard/total-units-sold-by-product", authRequired, moduleValidation.hasPermissions(
-    moduleValidation.MODULES.DASHBOARD
-), totalUnitsSoldByProduct);
-router.get("/dashboard/average-units-per-purchase", authRequired, moduleValidation.hasPermissions(
-    moduleValidation.MODULES.DASHBOARD
-), averageUnitsPerPurchase);
-router.get("/dashboard/average-units-per-sale", authRequired, moduleValidation.hasPermissions(
-    moduleValidation.MODULES.DASHBOARD
-), averageUnitsPerSale);
-router.get("/dashboard/net-income-by-product", authRequired, moduleValidation.hasPermissions(
-    moduleValidation.MODULES.DASHBOARD
-), netIncomeByProduct);
-router.get("/dashboard/net-income-by-supply", authRequired, moduleValidation.hasPermissions(
-    moduleValidation.MODULES.DASHBOARD
-), netIncomeBySupply);
+), getMostExpensiveSupply);
 
 export default router;

@@ -1,8 +1,6 @@
 import { Router } from "express";
-
-import { getProducts, getAllProduct, getProduct, getProductsByCategory, checkForDuplicates, createProduct, updateProduct, toggleProductStatus, deleteProduct } from '../controllers/product.controller.js';
+import { getProducts, getAllProduct, getProduct, getProductsByCategory, getDetailProduct2, checkForDuplicates, createProduct, updateProduct, toggleProductStatus, deleteProduct } from '../controllers/product.controller.js';
 import { getDetailProduct, createDetailP, deleteDetailProduct } from '../controllers/product.controller.js'; //Detalles
-
 import { authRequired } from '../middlewares/validateToken.js'
 import ModuleValidationMiddleware from '../middlewares/ModuleValidation.middleware.js'
 
@@ -49,11 +47,14 @@ router.get('/AllProducts', authRequired, moduleValidation.hasPermissions(
 router.get('/product_detail/:id', authRequired, moduleValidation.hasPermissions(
     moduleValidation.MODULES.PRODUCT
 ), getDetailProduct)
-router.post('/add_details/:id', authRequired, moduleValidation.hasPermissions(
+router.post('/add_details/', authRequired, moduleValidation.hasPermissions(
     moduleValidation.MODULES.PRODUCT
 ), createDetailP)
 router.delete('/details/:id', authRequired, moduleValidation.hasPermissions(
     moduleValidation.MODULES.PRODUCT
 ), deleteDetailProduct)
+router.get('/product_detail2/:id', authRequired, moduleValidation.hasPermissions(
+    moduleValidation.MODULES.PRODUCT
+), getDetailProduct2)
 
 export default router;

@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import { getSale, createSale, updateSale, pay, getOneSale, deleteSale, getSaleUp, getSaleDown, getSalesByTimeRange, getSalesByDate, getSalesByUser } from "../controllers/sale.controller.js";
+import { getSale, createSale, updateSale, pay, getOneSale, deleteSale, getSaleUp, getSaleDown, getSalesByTimeRange, getSalesByUser } from "../controllers/sale.controller.js";
 
 import { authRequired } from '../middlewares/validateToken.js'
 import ModuleValidationMiddleware from '../middlewares/ModuleValidation.middleware.js'
@@ -33,9 +33,6 @@ router.get('/getSale/:ID_Sale', authRequired, moduleValidation.hasPermissions(
 router.get('/getSaleByTime', authRequired, moduleValidation.hasPermissions(
     moduleValidation.MODULES.SALES
 ), getSalesByTimeRange);
-router.get('/getSaleByTimepc', authRequired, moduleValidation.hasPermissions(
-    moduleValidation.MODULES.SALES
-), getSalesByDate);
 router.get('/getSaleByuserpc', authRequired, moduleValidation.hasPermissions(
     moduleValidation.MODULES.SALES
 ), getSalesByUser);

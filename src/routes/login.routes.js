@@ -9,8 +9,8 @@ const router = Router();
 
 // --------------------------- EditProfile ------------------------------------- //
 
-router.put('/edit_profile/:id', authRequired, editProfile);
-router.put('/change_password/:id', authRequired, changePassword);
+router.put('/edit_profile', authRequired, editProfile);
+router.put('/change_password', authRequired, changePassword);
 
 // --------------------------- Login ------------------------------------- //
 router.post('/login', login);

@@ -19,6 +19,11 @@ export const supplies = sequelize.define('Supplies', {
             notNull: {
                 msg: "El nombre del insumo es requerido"
             },
+            customValidate(value) {
+                if (!/^[A-Za-zÁÉÍÓÚÑáéíóúñ\s]*$/.test(value)) {
+                    throw new Error('Se permiten letras mayúsculas, minúsculas, espacios, tildes.');
+                }
+            },  
             len: {
                 args: [3, 30],
                 msg: 'El nombre del insumo debe tener de 3 a 30 caracteres.'

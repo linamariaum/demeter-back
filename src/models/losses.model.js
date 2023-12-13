@@ -40,7 +40,7 @@ export const losses = sequelize.define('Losses', {
                 msg: "El motivo es requerido"
             },
             customValidate(value) {
-                if (!/^[A-ZÁÉÍÓÚÑa-záéíóúñ\s,.]*$/.test(value)) { // Esta es la validación buena
+                if (!/^[A-ZÁÉÍÓÚÑa-záéíóúñ\s,.]*$/.test(value)) { 
                     throw new Error('Se permiten letras mayúscula, minúsculas, espacios, tildes, comas y puntos.');
                 }
             },

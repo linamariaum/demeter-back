@@ -15,7 +15,16 @@ export const suppliesCategory = sequelize.define('SuppliesCategorys', {
         allowNull: false,
         validate: {
             notNull: {
-                msg: "El nombre es requerido"
+                msg: "El nombre de la categoría de insumo es requerido"
+            },
+            customValidate(value) {
+                if (!/^[A-Za-zÁÉÍÓÚÑáéíóúñ\s]*$/.test(value)) {
+                    throw new Error('Se permiten letras mayúsculas, minúsculas, espacios, tildes.');
+                }
+            },  
+            len: {
+                args: [3, 30],
+                msg: 'El nombre de la categoría de insumo debe tener de 3 a 30 caracteres.'
             }
         }
     },

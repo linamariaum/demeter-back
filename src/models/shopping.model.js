@@ -20,7 +20,7 @@ export const shopping = sequelize.define('Shoppings', {
         allowNull: false,
         validate: {
             notNull: {
-                msg: "La fech de la compra es requerido"
+                msg: "La fecha de la compra es requerido"
             }
         }
     },

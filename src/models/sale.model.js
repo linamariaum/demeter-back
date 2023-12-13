@@ -68,14 +68,7 @@ export const sale = sequelize.define('Sales', {
 
     Payment: {
         type: DataTypes.STRING(30),
-        allowNull: true, 
-        validate: {
-            customValidate(value) {
-                if (!/^[A-Za-z\s()]+$/.test(value)) {
-                    throw new Error('La medida del insumo puede contener letras, espacios y paréntesis.');
-                }
-            }
-        },
+        allowNull: true
     },
 
     State: {

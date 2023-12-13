@@ -3,7 +3,6 @@ import { sequelize } from "../db/dataBase.js";
 import { shopping } from './shopping.model.js'
 import { sale } from './sale.model.js'
 
-
 export const user = sequelize.define('Users', {
 
     ID_User: {
@@ -23,15 +22,12 @@ export const user = sequelize.define('Users', {
     },
 
     Document: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING(15),
         allowNull: false,
         unique: true,
         validate: {
             notNull: {
                 msg: 'El documento es requerido'
-            },
-            isNumeric: {
-                msg: 'El campo de número de identificacion debe contener solo números'
             }
         }
     },
@@ -42,11 +38,6 @@ export const user = sequelize.define('Users', {
         validate: {
             notNull: {
                 msg: 'El nombre es requerido'
-            },
-            customValidate(value) {
-                if (!/^[A-ZÑñ][a-zA-ZÑñ\s]*$/.test(value)) {
-                    throw new Error('Se debe comenzar con mayúscula y puede contener letras, espacios y la letra "ñ".');
-                }
             }
         }
     },
@@ -57,11 +48,6 @@ export const user = sequelize.define('Users', {
         validate: {
             notNull: {
                 msg: 'El apellido es requerido'
-            },
-            customValidate(value) {
-                if (!/^[A-ZÑñ][a-zA-ZÑñ\s]*$/.test(value)) {
-                    throw new Error('Se debe comenzar con mayúscula y puede contener letras, espacios y la letra "ñ".');
-                }
             }
         }
     },
@@ -69,7 +55,12 @@ export const user = sequelize.define('Users', {
     Email: {
         type: DataTypes.STRING(80),
         allowNull: true,
-        unique: true
+        unique: true,
+        validate: {
+            isEmail: {
+                msg: 'El correo electrónico debe ser válido y contener el símbolo "@"'
+            }
+        }
     },
 
     Password: {

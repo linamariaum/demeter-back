@@ -17,11 +17,6 @@ export const product = sequelize.define('Products', {
         validate: {
             notNull: {
                 msg: "El nombre del producto es requerido"
-            },
-            customValidate(value) {
-                if (!/^[A-ZÑñ][a-zA-ZÑñ\s]*$/.test(value)) {
-                    throw new Error('Se debe comenzar con mayúscula y puede contener letras, espacios y la letra "ñ".');
-                }
             }
         }
     },

@@ -19,11 +19,6 @@ export const supplies = sequelize.define('Supplies', {
             notNull: {
                 msg: "El nombre del insumo es requerido"
             },
-            customValidate(value) {
-                if (!/^[A-ZÑñ][a-zA-ZÑñ\s]*$/.test(value)) {
-                    throw new Error('Nombre: Se debe comenzar con mayúscula y puede contener letras, espacios y la letra "ñ".');
-                }
-            },
             len: {
                 args: [3, 30],
                 msg: 'El nombre del insumo debe tener de 3 a 30 caracteres.'
@@ -51,16 +46,11 @@ export const supplies = sequelize.define('Supplies', {
             notNull: {
                 msg: "La medida del insumo es requerido"
             }
-        },
-        customValidate(value) {
-            if (!/^[A-Za-zÑñ\s()]+$/.test(value)) {
-                throw new Error('Debe comenzar con mayúscula y puede contener letras, espacios, la letra "ñ" y paréntesis.');
-            }
         }
     },
 
     Stock: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.DOUBLE,
         allowNull: false,
         validate: {
             notNull: {

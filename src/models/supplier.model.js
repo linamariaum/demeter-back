@@ -52,7 +52,6 @@ export const supplier = sequelize.define('Suppliers', {
         allowNull: true,
         unique: true,
         validate: {
-
             len: {
                 args: [4, 50],
                 msg: 'El nombre debe tener de 4 a 50 caracteres.'

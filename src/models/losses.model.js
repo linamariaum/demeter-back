@@ -28,11 +28,6 @@ export const losses = sequelize.define('Losses', {
         validate: {
             notNull: {
                 msg: "La medida del insumo es requerido"
-            },
-            customValidate(value) {
-                if (!/^[A-Za-zÑñ\s()]+$/.test(value)) {
-                    throw new Error('Debe comenzar con mayúscula y puede contener letras, espacios, la letra "ñ" y paréntesis.');
-                }
             }
         },
     },
@@ -51,7 +46,7 @@ export const losses = sequelize.define('Losses', {
             },
             len: {
                 args: [10, 250],
-                msg: 'El motivo de la perdida debe tener de 30 a 250 caracteres.'
+                msg: 'El motivo de la perdida debe tener de 10 a 250 caracteres.'
             }
         }
     }

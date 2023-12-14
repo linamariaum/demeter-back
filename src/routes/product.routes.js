@@ -47,7 +47,7 @@ router.get('/AllProducts', authRequired, moduleValidation.hasPermissions(
 router.get('/product_detail/:id', authRequired, moduleValidation.hasPermissions(
     moduleValidation.MODULES.PRODUCT
 ), getDetailProduct)
-router.post('/add_details/', authRequired, moduleValidation.hasPermissions(
+router.post('/add_details', authRequired, moduleValidation.hasPermissions(
     moduleValidation.MODULES.PRODUCT
 ), createDetailP)
 router.delete('/details/:id', authRequired, moduleValidation.hasPermissions(

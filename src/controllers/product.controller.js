@@ -18,7 +18,7 @@ export const checkForDuplicates = async (req, res, next) => {
 
         const existingProduct = await product.findOne({
             where: {
-                [Op.or]: [{ Name_Products}],
+                [Op.or]: [{ Name_Products }],
             },
         });
 
@@ -35,13 +35,14 @@ export const checkForDuplicates = async (req, res, next) => {
 };
 
 export const createProduct = async (req, res) => {
-    const { Name_Products,  Price_Product, ProductCategory_ID } = req.body;
+    const { Name_Products, Image, Price_Product, ProductCategory_ID } = req.body;
 
     try {
         const newProduct = await product.create({
             Name_Products,
             Price_Product,
             ProductCategory_ID,
+            Image,
             State: true
         })
 
@@ -104,8 +105,8 @@ export const getProductsByCategory = async (req, res) => {
 
 export const getProduct = async (req, res) => {
     try {
-        const {id} = req.params
-        const products = await product.findOne({where: {ID_Product : id}})
+        const { id } = req.params
+        const products = await product.findOne({ where: { ID_Product: id } })
         res.json(products);
     } catch (error) {
         return res.status(500).json({ message: error.message });
@@ -154,9 +155,11 @@ export const getDetailsPByProduct = async (req, res) => {
     }
 };
 export const getDetailProduct = async (req, res) => {
-    const { id } = req.params;
 
     try {
+
+        const { id } = req.params;
+
         const productDetails = await productDetail.findAll({
             where: { Product_ID: id },
             include: [
@@ -166,7 +169,7 @@ export const getDetailProduct = async (req, res) => {
                 },
                 {
                     model: supplies,
-                    attributes: ['ID_Supplies', 'Name_Supplies', 'measure'  ], // Agrega los campos necesarios
+                    attributes: ['ID_Supplies', 'Name_Supplies', 'measure'], // Agrega los campos necesarios
                 },
             ],
         });
@@ -184,7 +187,7 @@ export const getDetailProduct = async (req, res) => {
 export const createDetailP = async (req, res) => {
 
     try {
-        const { Supplies_ID,  Lot_ProductDetail, id } = req.body
+        const { Supplies_ID, Lot_ProductDetail, Product_ID } = req.body
 
         const supplie = await supplies.findByPk(Supplies_ID);
         if (!supplie) {
@@ -192,10 +195,9 @@ export const createDetailP = async (req, res) => {
         }
 
         const createDetail = await productDetail.create({
-            Product_ID: id,
+            Product_ID: Product_ID,
             Supplies_ID: Supplies_ID,
-            Lot_ProductDetail : Lot_ProductDetail,
-            State: true
+            Lot_ProductDetail: Lot_ProductDetail,
         })
         res.json(createDetail);
     } catch (error) {
@@ -238,7 +240,7 @@ export const getDetailProduct2 = async (req, res) => {
                 return res.status(404).json({ message: 'No se encontró el suministro asociado al detalle del producto.' });
             }
 
-            const newUnit = supply.Unit - (lot/2);
+            const newUnit = supply.Unit - (lot / 2);
 
             await supply.update({ Unit: newUnit });
         }

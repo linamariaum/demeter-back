@@ -12,28 +12,25 @@ export const productDetail = sequelize.define('ProductDetails', {
     Lot_ProductDetail: {
         type: DataTypes.DOUBLE,
         allowNull: false,
-        validate: {
-            notNull: {
-                msg: "La cantidad del insumo requerido"
-            },
-            isInt: true,
-            min: 0,
-            max: 9999
+        notNull: {
+            msg: "La cantidad del insumo requerido"
         },
-    },
-
-    Measure: {
-        type: DataTypes.STRING(15),
-        allowNull: true
-    },
-
-    State: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: true,
-        allowNull: false,
-        validate: {
-            notNull: {
-                msg: 'El estado es requerido'
+        isFloat: {
+            msg: "La cantidad debe ser un número válido (puede ser decimal)"
+        },
+        min: {
+            args: [0],
+            msg: "La cantidad no puede ser menor que 0"
+        },
+        max: {
+            args: [9999],
+            msg: "La cantidad no puede ser mayor que 9999"
+        },
+        customValidator(value) {
+            // Realiza un reemplazo de comas por puntos antes de validar
+            const cleanedValue = value.replace(',', '.');
+            if (isNaN(parseFloat(cleanedValue))) {
+                throw new Error("La cantidad debe ser un número válido (puede ser decimal)");
             }
         }
     }

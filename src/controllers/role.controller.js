@@ -38,7 +38,7 @@ export const checkForDuplicates = async (req, res, next) => {
 export const createRoles = async (req, res) => {
     const { Name_Role } = req.body;
 
-    if (Name_Role.toLowerCase().includes('admin')) {
+    if (Name_Role.toLowerCase().includes('adm')) {
         return res.status(400).json({ message: 'No se permite crear roles con el nombre de administrador.' });
     }
 

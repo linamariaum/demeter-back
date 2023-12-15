@@ -12,6 +12,20 @@ export const getProducts = async (req, res) => {
     }
 };
 
+export const getProductById = async (req, res) => {
+    try {
+        const _product = await product.findOne({
+            where: {
+                ID_Product: req.params.id
+            }
+        })
+
+        res.json(_product);
+    } catch (error) {
+        return res.status(500).json({ message: error.message });
+    }
+};
+
 export const checkForDuplicates = async (req, res, next) => {
     try {
         const { Name_Products } = req.body;
@@ -54,12 +68,11 @@ export const createProduct = async (req, res) => {
 export const updateProduct = async (req, res) => {
     try {
         const { id } = req.params
-        const { Name_Products, Image, Price_Product, ProductCategory_ID } = req.body
+        const { Name_Products, Price_Product, ProductCategory_ID } = req.body
 
         const updateProduct = await product.findByPk(id)
 
         updateProduct.Name_Products = Name_Products
-        updateProduct.Image = Image
         updateProduct.Price_Product = Price_Product
         updateProduct.ProductCategory_ID = ProductCategory_ID
 

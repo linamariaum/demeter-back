@@ -19,17 +19,17 @@ export default class {
   }) => null) {
 
     this.MODULES = {
-      DASHBOARD: "dashboard",
-      SETTINGS: "setting",
-      USER: "user",
-      CATEGORY_SUPPLIES: "categorySupplies",
-      SUPPLIES: "supplies",
-      SUPPLIER: "supplier",
-      CATEGORY_PRODUCT: "categoryProduct",
-      PRODUCT: "product",
-      WAITER: "waiter",
-      SHOPPING: "shopping",
-      SALES: "sales"
+      DASHBOARD: "DashBoard",
+      SETTINGS: "Configuracion",
+      USER: "Empleados",
+      CATEGORY_SUPPLIES: "Categoria_Insumos",
+      SUPPLIES: "Insumos",
+      SUPPLIER: "Proveedores",
+      SHOPPING: "Compras",
+      CATEGORY_PRODUCT: "Categoria_Productos",
+      PRODUCT: "Productos",
+      WAITER: "Meseros",
+      SALES: "Ventas"
     }
 
     this.#errorHandler = errorHandler
@@ -112,17 +112,17 @@ export default class {
 
 INSERT INTO modules(Name_module)
 VALUES
-("dashboard"),
-("product"),
-("setting"),
-("user"),
-("categorySupplies"),
-("waiter"),
-("shopping"),
-("sales"),
-("supplies"),
-("supplier"),
-("categoryProduct");
+("DashBoard"),
+("Configuracion"),
+("Empleados"),
+("Categoria_Insumos"),
+("Insumos"),
+("Proveedores"),
+("Compras"),
+("Categoria_Productos"),
+("Productos"),
+("Meseros"),
+("Ventas");
 
 INSERT INTO `roles` (`ID_Role`, `Name_Role`, `State`) VALUES (NULL, 'Administrador', '1');
 

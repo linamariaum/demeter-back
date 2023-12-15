@@ -67,17 +67,17 @@ export const supplier = sequelize.define('Suppliers', {
         type: DataTypes.STRING(50),
         allowNull: true,
         unique: true,
-        validate: {
-            customValidate(value) {
-                if (!/^[A-Za-zÁÉÍÓÚÑáéíóúñ\s,.-]*$/.test(value)) {
-                    throw new Error('Se permiten letras mayúsculas, minúsculas, espacios, tildes, coma, punto y guion.');
-                }
-            },
-            len: {
-                args: [4, 50],
-                msg: 'El nombre de la empresa debe tener de 4 a 50 caracteres.'
-            }
-        }
+        // validate: {
+        //     customValidate(value) {
+        //         if (!/^[A-Za-zÁÉÍÓÚÑáéíóúñ\s,.-]*$/.test(value)) {
+        //             throw new Error('Se permiten letras mayúsculas, minúsculas, espacios, tildes, coma, punto y guion.');
+        //         }
+        //     },
+        //     len: {
+        //         args: [4, 50],
+        //         msg: 'El nombre de la empresa debe tener de 4 a 50 caracteres.'
+        //     }
+        // }
     },
 
     Phone: {

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getProducts, getAllProduct, getProduct, getProductsByCategory, getDetailProduct2, checkForDuplicates, createProduct, updateProduct, toggleProductStatus, deleteProduct } from '../controllers/product.controller.js';
+import { getProducts, getAllProduct, getProduct, getProductsByCategory, getDetailProduct2, checkForDuplicates, createProduct, updateProduct, toggleProductStatus, deleteProduct, getProductById } from '../controllers/product.controller.js';
 import { getDetailProduct, createDetailP, deleteDetailProduct } from '../controllers/product.controller.js'; //Detalles
 import { authRequired } from '../middlewares/validateToken.js'
 import ModuleValidationMiddleware from '../middlewares/ModuleValidation.middleware.js'
@@ -41,6 +41,9 @@ router.get('/Singleproduct/:id', authRequired, moduleValidation.hasPermissions(
 router.get('/AllProducts', authRequired, moduleValidation.hasPermissions(
     moduleValidation.MODULES.PRODUCT
 ), getAllProduct);
+router.get('/getProductById/:id', authRequired, moduleValidation.hasPermissions(
+    moduleValidation.MODULES.PRODUCT
+), getProductById);
 
 // --------------------- Detalle -------------------------
 

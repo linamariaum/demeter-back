@@ -16,7 +16,7 @@ export const losses = sequelize.define('Losses', {
             notNull: {
                 msg: "La cantidad del insumo perdido es requerido"
             },
-            isInt: true,
+            isFloat: true,
             min: 0,
             max: 99999999
         },

@@ -37,7 +37,7 @@ export const product = sequelize.define('Products', {
             notNull: {
                 msg: "El precio del producto es requerido"
             },
-            isInt: true
+            isFloat: true
         },
     },
 

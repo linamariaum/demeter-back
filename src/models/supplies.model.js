@@ -38,7 +38,7 @@ export const supplies = sequelize.define('Supplies', {
             notNull: {
                 msg: "La cantidad del insumo es requerido"
             },
-            isInt: true,
+            isFloat: true,
             min: 0,
             max: 99999999
         },
@@ -61,7 +61,7 @@ export const supplies = sequelize.define('Supplies', {
             notNull: {
                 msg: "El stock del insumo es requerido"
             },
-            isInt: true,
+            isFloat: true,
             min: 0,
             max: 9999
         },

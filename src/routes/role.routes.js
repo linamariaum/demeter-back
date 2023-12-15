@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import { getRoles, checkForDuplicates, datosType, createRoles, updateRole, toggleRoleStatus, deleteRole, addModuleToRole, addMultipleModuleAndRole, addMultipleModuleAndRoleAndDeleteIfExists, } from '../controllers/role.controller.js';
+import { getRoles, checkForDuplicates, datosType, createRoles, updateRole, toggleRoleStatus, addModuleToRole, addMultipleModuleAndRole, addMultipleModuleAndRoleAndDeleteIfExists, } from '../controllers/role.controller.js';
 
 import { authRequired } from '../middlewares/validateToken.js'
 import ModuleValidationMiddleware from '../middlewares/ModuleValidation.middleware.js'
@@ -39,9 +39,6 @@ router.put('/role/:id', authRequired, moduleValidation.hasPermissions(
 router.put('/role/toggle/:id', authRequired, moduleValidation.hasPermissions(
     moduleValidation.MODULES.SETTINGS
 ), toggleRoleStatus);
-router.delete('/role/:id', authRequired, moduleValidation.hasPermissions(
-    moduleValidation.MODULES.SETTINGS
-), deleteRole);
 
 router.post('/type', datosType);
 

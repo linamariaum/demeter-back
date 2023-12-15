@@ -32,7 +32,7 @@ export const shopping = sequelize.define('Shoppings', {
             notNull: {
                 msg: "El total de la compra es requerido"
             },
-            isInt: true
+            isFloat: true
         }
     },
 

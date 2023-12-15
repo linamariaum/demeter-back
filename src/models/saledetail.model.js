@@ -16,7 +16,7 @@ export const saleDetail = sequelize.define('SaleDetails', {
             notNull: {
                 msg: "La cantidad del producto es requerido."
             },
-            isInt: true,
+            isFloat: true,
             min: 0,
             max: 9999
         },

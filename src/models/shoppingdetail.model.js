@@ -16,7 +16,7 @@ export const shoppingDetail = sequelize.define('ShoppingDetails', {
             notNull: {
                 msg: "La cantidad del insumo es requerido"
             },
-            isInt: true,
+            isFloat: true,
             min: 0,
             max: 9999
         },
@@ -29,7 +29,7 @@ export const shoppingDetail = sequelize.define('ShoppingDetails', {
             notNull: {
                 msg: "El precio del insumo es requerido"
             },
-            isInt: true
+            isFloat: true
         },
     }
 }, {

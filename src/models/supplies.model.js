@@ -62,8 +62,8 @@ export const supplies = sequelize.define('Supplies', {
                 msg: "El stock del insumo es requerido"
             },
             isFloat: true,
-            min: 0,
-            max: 9999
+            min: 1,
+            max: 999
         },
     },
 
